@@ -1,9 +1,12 @@
 import type { ContactApiResponse, ContactData } from '@/types/contact';
-const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
+const baseUrl =
+  typeof window === "undefined"
+    ? process.env.INTERNAL_API_URL
+    : process.env.NEXT_PUBLIC_API_URL;
 export async function fetchContact(): Promise<ContactData> {
   const res = await fetch(
-    `${API_URL}/contact?populate[sections][on][blog.blog-hero-section][populate][featured_image]=true&populate[seo]=*&populate[sections][on][blog.text-section]=*`,
+    `${baseUrl}/api/contact?populate[sections][on][blog.blog-hero-section][populate][featured_image]=true&populate[seo]=*&populate[sections][on][blog.text-section]=*`,
     { next: { revalidate: 60 }, cache: 'no-store' }
   );
   const json = await res.json();

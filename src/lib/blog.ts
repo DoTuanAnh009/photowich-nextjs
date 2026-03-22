@@ -1,8 +1,11 @@
 import type { BlogCategory, BlogIndexData, BlogPostSummary } from '@/types/blog';
 import type { StrapiResponse } from '@/types/strapi';
 import qs from 'qs';
-const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
+const baseUrl =
+  typeof window === "undefined"
+    ? process.env.INTERNAL_API_URL
+    : process.env.NEXT_PUBLIC_API_URL;
 function buildQuery(params: Record<string, any>): string {
   return qs.stringify(params, { encodeValuesOnly: true });
 }
@@ -17,7 +20,7 @@ export async function fetchBlogIndex(): Promise<BlogIndexData | null> {
       seo: { populate: '*' },
     },
   });
-  const res = await fetch(`${API_URL}/blog?${query}`, { cache: 'no-store' });
+  const res = await fetch(`${baseUrl}/api/blog?${query}`, { cache: 'no-store' });
   if (!res.ok) return null;
   const json: StrapiResponse<BlogIndexData> = await res.json();
   return json.data ?? null;
@@ -35,7 +38,7 @@ export async function fetchLatestPosts(limit = 4): Promise<BlogPostSummary[]> {
       category: { fields: ['title', 'slug'] },
     },
   });
-  const res = await fetch(`${API_URL}/blog-posts?${query}`, { cache: 'no-store' });
+  const res = await fetch(`${baseUrl}/api/blog-posts?${query}`, { cache: 'no-store' });
   if (!res.ok) return [];
   const json = await res.json();
   // Map categorySlug cho BlogPostSummary
@@ -57,7 +60,7 @@ export async function fetchPostsByCategory(slug: string, limit = 6): Promise<Blo
       hero: { populate: ['featured_image'] },
     },
   });
-  const res = await fetch(`${API_URL}/blog-posts?${query}`, { cache: 'no-store' });
+  const res = await fetch(`${baseUrl}/api/blog-posts?${query}`, { cache: 'no-store' });
   if (!res.ok) return [];
   const json: StrapiResponse<BlogPostSummary[]> = await res.json();
   return json.data || [];
@@ -72,7 +75,7 @@ export async function getBlogCategoriesForNav(): Promise<BlogCategory[]> {
     fields: ['id', 'title', 'slug', 'description', 'order'],
     filters: { is_active: { $eq: true } },
   }, { encodeValuesOnly: true });
-  const res = await fetch(`${API_URL}/blog-categories?${query}`, { cache: 'no-store' });
+  const res = await fetch(`${baseUrl}/api/blog-categories?${query}`, { cache: 'no-store' });
   if (!res.ok) return [];
   const json: StrapiResponse<BlogCategory[]> = await res.json();
   return json.data || [];

@@ -1,10 +1,13 @@
 import type { ServiceDetail } from '@/types/service';
 import { StrapiResponse } from '@/types/strapi';
-const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
+const baseUrl =
+  typeof window === "undefined"
+    ? process.env.INTERNAL_API_URL
+    : process.env.NEXT_PUBLIC_API_URL;
 // Fetch chi tiết dịch vụ theo slug
 export async function fetchDetailService(slug: string): Promise<ServiceDetail | null> {
-  const url = `${API_URL}/services?filters[slug][$eq]=${slug}` +
+  const url = `${baseUrl}/api/services?filters[slug][$eq]=${slug}` +
     '&populate[background_image][populate]=*'
     + '&populate[category][fields][0]=title'
     + '&populate[category][fields][1]=slug'
@@ -29,7 +32,7 @@ export async function fetchDetailService(slug: string): Promise<ServiceDetail | 
 export async function fetchAllServices(): Promise<ServiceDetail[]> {
   // Use exact query string for service list
   // Use correct array-style populate query string for Strapi v5
-  const url = `${API_URL}/services?populate[0]=background_image_before&populate[1]=background_image_after&populate[2]=background_image&populate[3]=seo`;
+  const url = `${baseUrl}/api/services?populate[0]=background_image_before&populate[1]=background_image_after&populate[2]=background_image&populate[3]=seo`;
   const res = await fetch(url, { cache: 'no-store' });
   if (!res.ok) return [];
 

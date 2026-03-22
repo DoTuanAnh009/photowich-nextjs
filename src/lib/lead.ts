@@ -1,6 +1,9 @@
 // Submit lead to Strapi API (all fields)
-const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
+const baseUrl =
+  typeof window === "undefined"
+    ? process.env.INTERNAL_API_URL
+    : process.env.NEXT_PUBLIC_API_URL;
 export async function submitLead(data: {
   full_name?: string;
   email?: string;
@@ -16,7 +19,7 @@ export async function submitLead(data: {
   attachments?: File | null;
 }) {
   const payload = { data };
-  const res = await fetch(`${API_URL}/leads`, {
+  const res = await fetch(`${baseUrl}/api/leads`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

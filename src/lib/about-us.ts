@@ -1,10 +1,13 @@
 import { AboutUsResponse } from '@/types/about-us';
 
-const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+const baseUrl =
+  typeof window === "undefined"
+    ? process.env.INTERNAL_API_URL
+    : process.env.NEXT_PUBLIC_API_URL;
 
 export async function fetchAboutUs(): Promise<AboutUsResponse['data']> {
   const res = await fetch(
-    `${API_URL}/about-us?populate[sections][on][blog.blog-hero-section][populate][featured_image]=true&populate[seo]=*&populate[sections][on][blog.text-section]=*`,
+    `${baseUrl}/api/about-us?populate[sections][on][blog.blog-hero-section][populate][featured_image]=true&populate[seo]=*&populate[sections][on][blog.text-section]=*`,
     { next: { revalidate: 60 }, cache: 'no-store' },
     
   );

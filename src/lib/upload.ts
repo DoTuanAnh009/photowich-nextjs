@@ -1,10 +1,14 @@
 // Upload a file to Strapi and return the uploaded file id
-const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
+
+const baseUrl =
+  typeof window === "undefined"
+    ? process.env.INTERNAL_API_URL
+    : process.env.NEXT_PUBLIC_API_URL;
 export async function uploadFileToStrapi(file: File): Promise<string> {
   const formData = new FormData();
   formData.append('files', file);
-  const res = await fetch(`${API_URL}/upload`, {
+  const res = await fetch(`${baseUrl}/api/upload`, {
     method: 'POST',
     body: formData,
     cache: 'no-store',

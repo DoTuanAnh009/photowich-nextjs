@@ -6,8 +6,11 @@
  */
 
 import type { ServiceCategory, StrapiMedia, StrapiPagination, StrapiResponse } from '@/types/strapi';
-const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
+const baseUrl =
+  typeof window === "undefined"
+    ? process.env.INTERNAL_API_URL
+    : process.env.NEXT_PUBLIC_API_URL;
 interface StrapiRequestOptions {
   endpoint: string;
   query?: Record<string, string>;
@@ -25,7 +28,7 @@ interface StrapiResponseWithMeta<T> extends StrapiResponse<T> {
  * Build URL with query parameters for Strapi API
  */
 function buildUrl(endpoint: string, query?: Record<string, string>): string {
-  const url = new URL(`${endpoint}`, API_URL);
+  const url = new URL(`api/${endpoint}`,  baseUrl);
   
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
@@ -43,8 +46,8 @@ function getHeaders(): HeadersInit {
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
-  if (API_URL) {
-    headers['Authorization'] = `Bearer ${API_URL}`;
+  if (baseUrl) {
+    headers['Authorization'] = `Bearer ${baseUrl}`;
   }
 
   return headers;
