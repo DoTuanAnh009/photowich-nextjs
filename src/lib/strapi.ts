@@ -9,7 +9,7 @@ import type { ServiceCategory, StrapiMedia, StrapiPagination, StrapiResponse } f
 
 
 const isServer = typeof window === "undefined";
-
+console.log('Running in environment:', isServer ? 'Server' : 'Client');
 const API_URL = isServer
   ? "http://strapi:1337"
   : process.env.NEXT_PUBLIC_STRAPI_URL || "/api";const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
