@@ -7,13 +7,12 @@
 
 import type { ServiceCategory, StrapiMedia, StrapiPagination, StrapiResponse } from '@/types/strapi';
 
+export const dynamic = "force-dynamic";
 
-const isServer = typeof window === "undefined";
-console.log('Running in environment:', isServer ? 'Server' : 'Client');
-const API_URL = isServer
-  ? "http://strapi:1337"
-  : process.env.NEXT_PUBLIC_STRAPI_URL || "/api";const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
-
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "http://nginx"
+    : "http://localhost";
 interface StrapiRequestOptions {
   endpoint: string;
   query?: Record<string, string>;
@@ -31,7 +30,7 @@ interface StrapiResponseWithMeta<T> extends StrapiResponse<T> {
  * Build URL with query parameters for Strapi API
  */
 function buildUrl(endpoint: string, query?: Record<string, string>): string {
-  const url = new URL(`${endpoint}`, API_URL);
+  const url = new URL(`api/${endpoint}`, API_URL);
   
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
@@ -49,8 +48,8 @@ function getHeaders(): HeadersInit {
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
-  if (STRAPI_API_TOKEN) {
-    headers['Authorization'] = `Bearer ${STRAPI_API_TOKEN}`;
+  if (API_URL) {
+    headers['Authorization'] = `Bearer ${API_URL}`;
   }
 
   return headers;

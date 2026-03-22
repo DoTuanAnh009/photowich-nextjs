@@ -1,10 +1,11 @@
 // Submit lead to Strapi API (all fields)
 
-const isServer = typeof window === "undefined";
+export const dynamic = "force-dynamic";
 
-const API_URL = isServer
-  ? "http://strapi:1337"
-  : process.env.NEXT_PUBLIC_STRAPI_URL || "/api";
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? "http://nginx"
+    : "http://localhost";
 export async function submitLead(data: {
   full_name?: string;
   email?: string;
@@ -20,7 +21,7 @@ export async function submitLead(data: {
   attachments?: File | null;
 }) {
   const payload = { data };
-  const res = await fetch(`${API_URL}/leads`, {
+  const res = await fetch(`${API_URL}/api/leads`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
