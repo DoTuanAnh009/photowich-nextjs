@@ -1,7 +1,7 @@
-import { fetchDetailService, fetchAllServices } from '@/lib/service';
-import type { ServiceDetail } from '@/types/service';
-import { generatePageMetadata } from '@/lib/seo';
+export const dynamic = "force-dynamic";
 import { DynamicZone } from '@/components/dynamic-zone';
+import { generatePageMetadata } from '@/lib/seo';
+import { fetchAllServices, fetchDetailService } from '@/lib/service';
 import type { Metadata } from 'next';
 
 interface ServiceDetailPageProps {

@@ -1,10 +1,11 @@
+export const dynamic = "force-dynamic";
 import { fetchAboutUs } from '@/lib/about-us';
 // import { DynamicZone } from '@/components/dynamic-zone';
-import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
-import { generatePageMetadata } from '@/lib/seo';
 import { AboutUsGallery } from '@/components/sections/about/AboutUsGallery';
 import { StrapiImage } from '@/components/ui/StrapiImage';
+import { generatePageMetadata } from '@/lib/seo';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 
 export async function generateMetadata() {
 	const data = await fetchAboutUs();

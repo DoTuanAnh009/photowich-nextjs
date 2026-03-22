@@ -4,12 +4,12 @@
  * Server Component that fetches homepage data from Strapi.
  * Strapi v5 uses flatten response format.
  */
-
-import type { Metadata } from 'next';
-import { fetchStrapi } from '@/lib/strapi';
-import { generatePageMetadata } from '@/lib/seo';
+export const dynamic = "force-dynamic";
 import { DynamicZone } from '@/components/dynamic-zone';
+import { generatePageMetadata } from '@/lib/seo';
+import { fetchStrapi } from '@/lib/strapi';
 import type { Homepage } from '@/types/strapi';
+import type { Metadata } from 'next';
 
 /**
  * Build homepage populate query for Strapi

@@ -1,7 +1,8 @@
-import { fetchBulkOrder } from '@/lib/bulk-order';
-import { fetchAllServices } from '@/lib/service';
+export const dynamic = "force-dynamic";
 import { DynamicZone } from '@/components/dynamic-zone';
+import { fetchBulkOrder } from '@/lib/bulk-order';
 import { generatePageMetadata } from '@/lib/seo';
+import { fetchAllServices } from '@/lib/service';
 
 export async function generateMetadata() {
 	const data = await fetchBulkOrder();

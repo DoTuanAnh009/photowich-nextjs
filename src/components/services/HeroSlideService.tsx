@@ -4,13 +4,15 @@ export function HeroSlideService(hero: BlogHero) {
   
 const isServer = typeof window === "undefined";
 
-const API_URL = isServer
-  ? "http://strapi:1337"
-  : process.env.NEXT_PUBLIC_STRAPI_URL || "/api";
+
+const baseUrl =
+  typeof window === "undefined"
+    ? process.env.INTERNAL_API_URL
+    : process.env.NEXT_PUBLIC_API_URL;
   // Get background image url
   const bgUrl = hero.featured_image?.url
-    ? API_URL
-      ? API_URL.replace(/\/$/, '') + hero.featured_image.url
+    ? baseUrl
+      ? baseUrl.replace(/\/$/, '') + hero.featured_image.url
       : hero.featured_image.url
     : undefined;
 

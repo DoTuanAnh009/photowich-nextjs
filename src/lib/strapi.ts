@@ -28,7 +28,7 @@ interface StrapiResponseWithMeta<T> extends StrapiResponse<T> {
  * Build URL with query parameters for Strapi API
  */
 function buildUrl(endpoint: string, query?: Record<string, string>): string {
-  const url = new URL(`api/${endpoint}`,  baseUrl);
+  const url = new URL(`/api/${endpoint}`,  baseUrl);
   
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
@@ -98,11 +98,11 @@ export function getStrapiMediaUrl(media?: { url?: string } | null): string {
   if (media.url.startsWith("http")) return media.url;
   
 const isServer = typeof window === "undefined";
-
-const API_URL = isServer
-  ? "http://localhost:1337"
-  : process.env.NEXT_PUBLIC_STRAPI_URL || "/api";
-  const baseURL = API_URL;
+const baseUrl =
+  typeof window === "undefined"
+    ? process.env.INTERNAL_API_URL
+    : process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = baseUrl ??"";
   return baseURL.replace(/\/$/, "") + media.url;
 }
 

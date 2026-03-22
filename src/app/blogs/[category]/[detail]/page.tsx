@@ -1,15 +1,16 @@
 
-import { notFound } from 'next/navigation';
+export const dynamic = "force-dynamic";
+import SocialActionButtons from '@/components/blog/SocialActionButtons';
+import { StrapiImage } from '@/components/ui/StrapiImage';
 import { fetchBlogDetailBySlug } from '@/lib/blog-detail';
 import { fetchRelatedPostsByTags } from '@/lib/blog-related';
+import { formatDate } from '@/lib/common';
+import { BlogSEO } from '@/types/blog';
 import type { BlogPostDetail } from '@/types/blog-detail';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import Link from 'next/link';
-import { formatDate } from '@/lib/common';
-import { StrapiImage } from '@/components/ui/StrapiImage';
-import SocialActionButtons from '@/components/blog/SocialActionButtons';
-import { BlogSEO } from '@/types/blog';
 
 interface BlogDetailPageProps {
   params: { category: string; detail: string };

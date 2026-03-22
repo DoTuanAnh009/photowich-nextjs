@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { ContractForm } from '@/components/sections/contact/ContractForm';
 import { StrapiImage } from '@/components/ui/StrapiImage';
 import { fetchContact } from '@/lib/common'; // Giả định có API fetchContact cho hero

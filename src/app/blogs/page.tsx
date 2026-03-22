@@ -1,9 +1,10 @@
-import { fetchBlogIndex, fetchLatestPosts, fetchPostsByCategory } from '@/lib/blog';
+export const dynamic = "force-dynamic";
+import { BlogCategorySection } from '@/components/blog/BlogCategorySection';
 import { BlogHero } from '@/components/blog/BlogHero';
 import { BlogLatestList } from '@/components/blog/BlogLatestList';
-import { BlogCategorySection } from '@/components/blog/BlogCategorySection';
-import type { BlogCategory } from '@/types/blog';
+import { fetchBlogIndex, fetchLatestPosts, fetchPostsByCategory } from '@/lib/blog';
 import { generatePageMetadata } from '@/lib/seo';
+import type { BlogCategory } from '@/types/blog';
 
 export default async function BlogIndexPage() {
   // Fetch main blog index data
