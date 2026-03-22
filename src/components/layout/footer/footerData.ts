@@ -4,7 +4,7 @@
  * Build footer sections from API services data.
  */
 
-import type { FooterSection, FooterProps } from '@/types/footer';
+import type { FooterProps, FooterSection } from '@/types/footer';
 
 /**
  * Build footer sections with dynamic services

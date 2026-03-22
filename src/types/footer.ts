@@ -17,8 +17,5 @@ export interface FooterSection {
 }
 
 export interface FooterProps {
-  services?: {
-    photo: NavService[];
-    video: NavService[];
-  };
+  services?: Record<string, NavService[]>
 }
