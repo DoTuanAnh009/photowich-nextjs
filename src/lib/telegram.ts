@@ -16,6 +16,7 @@ export async function sendLeadToTelegram(lead: any) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
+    cache: 'no-store',
   });
   if (!res.ok) {
     throw new Error("Failed to send Telegram message");

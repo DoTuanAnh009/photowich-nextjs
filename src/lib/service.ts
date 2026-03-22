@@ -1,16 +1,10 @@
 import type { ServiceDetail } from '@/types/service';
 import { StrapiResponse } from '@/types/strapi';
+const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
-
-export const dynamic = "force-dynamic";
-
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? "http://nginx"
-    : "http://localhost";
 // Fetch chi tiết dịch vụ theo slug
 export async function fetchDetailService(slug: string): Promise<ServiceDetail | null> {
-  const url = `${API_URL}/api/services?filters[slug][$eq]=${slug}` +
+  const url = `${API_URL}/services?filters[slug][$eq]=${slug}` +
     '&populate[background_image][populate]=*'
     + '&populate[category][fields][0]=title'
     + '&populate[category][fields][1]=slug'
@@ -24,7 +18,7 @@ export async function fetchDetailService(slug: string): Promise<ServiceDetail | 
     + '&populate[sections][on][sections.rich-text-section][populate]=*'
     + '&populate[sections][on][home.why-choose-us-section][populate][items][populate][icon_image]=true';
 
-  const res = await fetch(url);
+  const res = await fetch(url, { cache: 'no-store' });
   if (!res.ok) return null;
   // Parse đúng theo response
     const json: StrapiResponse<ServiceDetail[]> = await res.json();
@@ -35,8 +29,8 @@ export async function fetchDetailService(slug: string): Promise<ServiceDetail | 
 export async function fetchAllServices(): Promise<ServiceDetail[]> {
   // Use exact query string for service list
   // Use correct array-style populate query string for Strapi v5
-  const url = `${API_URL}/api/services?populate[0]=background_image_before&populate[1]=background_image_after&populate[2]=background_image&populate[3]=seo`;
-  const res = await fetch(url);
+  const url = `${API_URL}/services?populate[0]=background_image_before&populate[1]=background_image_after&populate[2]=background_image&populate[3]=seo`;
+  const res = await fetch(url, { cache: 'no-store' });
   if (!res.ok) return [];
 
   const json: { data: ServiceDetail[] } = await res.json();

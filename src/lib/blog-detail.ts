@@ -1,12 +1,8 @@
 import { BlogPostDetail } from '@/types/blog-detail';
 import type { StrapiResponse } from '@/types/strapi';
 import qs from 'qs';
-export const dynamic = "force-dynamic";
+const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? "http://nginx"
-    : "http://localhost";
 function buildQuery(params: Record<string, any>): string {
   return qs.stringify(params, { encodeValuesOnly: true });
 }
@@ -25,7 +21,7 @@ export async function fetchBlogDetailBySlug(slug: string): Promise<BlogPostDetai
     },
     fields: ['title', 'slug', 'excerpt', 'publishedAt'],
   });
-  const res = await fetch(`${API_URL}/api/blog-posts?${query}`);
+  const res = await fetch(`${API_URL}/blog-posts?${query}`,{ cache: 'no-store' });
   if (!res.ok) return null;
   const json: StrapiResponse<BlogPostDetail[]> = await res.json();
   return json.data && json.data.length > 0 ? json.data[0] : null;

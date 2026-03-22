@@ -1,16 +1,13 @@
 // Upload a file to Strapi and return the uploaded file id
-export const dynamic = "force-dynamic";
+const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
-const SITE_URL =
-  process.env.NODE_ENV === "production"
-    ? "http://nginx"
-    : "http://localhost";
 export async function uploadFileToStrapi(file: File): Promise<string> {
   const formData = new FormData();
   formData.append('files', file);
-  const res = await fetch(`${SITE_URL}/api/upload`, {
+  const res = await fetch(`${API_URL}/upload`, {
     method: 'POST',
     body: formData,
+    cache: 'no-store',
   });
   if (!res.ok) {
     throw new Error('Failed to upload file');

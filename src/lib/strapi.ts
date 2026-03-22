@@ -6,13 +6,8 @@
  */
 
 import type { ServiceCategory, StrapiMedia, StrapiPagination, StrapiResponse } from '@/types/strapi';
+const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
-export const dynamic = "force-dynamic";
-
-const API_URL =
-  process.env.NODE_ENV === "production"
-    ? "http://nginx"
-    : "http://localhost";
 interface StrapiRequestOptions {
   endpoint: string;
   query?: Record<string, string>;
@@ -30,7 +25,7 @@ interface StrapiResponseWithMeta<T> extends StrapiResponse<T> {
  * Build URL with query parameters for Strapi API
  */
 function buildUrl(endpoint: string, query?: Record<string, string>): string {
-  const url = new URL(`api/${endpoint}`, API_URL);
+  const url = new URL(`${endpoint}`, API_URL);
   
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
@@ -81,6 +76,7 @@ export async function fetchStrapi<T>({
       tags,
       revalidate,
     },
+    cache: 'no-store',
   });
 
   if (!response.ok) {
