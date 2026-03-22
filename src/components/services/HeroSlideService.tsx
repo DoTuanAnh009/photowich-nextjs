@@ -1,10 +1,16 @@
-import type { BlogHero, BlogCategory } from '@/types/blog';
+import type { BlogHero } from '@/types/blog';
 
 export function HeroSlideService(hero: BlogHero) {
+  
+const isServer = typeof window === "undefined";
+
+const API_URL = isServer
+  ? "http://strapi:1337"
+  : process.env.NEXT_PUBLIC_STRAPI_URL || "/api";
   // Get background image url
   const bgUrl = hero.featured_image?.url
-    ? process.env.NEXT_PUBLIC_STRAPI_URL
-      ? process.env.NEXT_PUBLIC_STRAPI_URL.replace(/\/$/, '') + hero.featured_image.url
+    ? API_URL
+      ? API_URL.replace(/\/$/, '') + hero.featured_image.url
       : hero.featured_image.url
     : undefined;
 

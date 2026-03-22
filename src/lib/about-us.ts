@@ -1,5 +1,10 @@
 import { AboutUsResponse } from '@/types/about-us';
-const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+
+const isServer = typeof window === "undefined";
+
+const API_URL = isServer
+  ? "http://strapi:1337"
+  : process.env.NEXT_PUBLIC_STRAPI_URL || "/api";
 
 export async function fetchAboutUs(): Promise<AboutUsResponse['data']> {
   const res = await fetch(

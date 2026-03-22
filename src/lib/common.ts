@@ -1,9 +1,13 @@
 import type { ContactApiResponse, ContactData } from '@/types/contact';
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || '';
 
+const isServer = typeof window === "undefined";
+
+const API_URL = isServer
+  ? "http://strapi:1337"
+  : process.env.NEXT_PUBLIC_STRAPI_URL || "/api";
 export async function fetchContact(): Promise<ContactData> {
   const res = await fetch(
-    `${STRAPI_URL}/contact?populate[sections][on][blog.blog-hero-section][populate][featured_image]=true&populate[seo]=*&populate[sections][on][blog.text-section]=*`,
+    `${API_URL}/contact?populate[sections][on][blog.blog-hero-section][populate][featured_image]=true&populate[seo]=*&populate[sections][on][blog.text-section]=*`,
     { next: { revalidate: 60 } }
   );
   const json = await res.json();

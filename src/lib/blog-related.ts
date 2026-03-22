@@ -2,8 +2,12 @@ import type { BlogPostSummary, BlogTag } from '@/types/blog';
 import type { StrapiResponse } from '@/types/strapi';
 import qs from 'qs';
 
-const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
+const isServer = typeof window === "undefined";
+
+const API_URL = isServer
+  ? "http://strapi:1337"
+  : process.env.NEXT_PUBLIC_STRAPI_URL || "/api";
 function buildQuery(params: Record<string, any>): string {
   return qs.stringify(params, { encodeValuesOnly: true });
 }

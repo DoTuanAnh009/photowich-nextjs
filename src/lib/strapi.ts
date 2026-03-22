@@ -7,8 +7,12 @@
 
 import type { ServiceCategory, StrapiMedia, StrapiPagination, StrapiResponse } from '@/types/strapi';
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
-const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
+
+const isServer = typeof window === "undefined";
+
+const API_URL = isServer
+  ? "http://strapi:1337"
+  : process.env.NEXT_PUBLIC_STRAPI_URL || "/api";const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
 
 interface StrapiRequestOptions {
   endpoint: string;
@@ -27,7 +31,7 @@ interface StrapiResponseWithMeta<T> extends StrapiResponse<T> {
  * Build URL with query parameters for Strapi API
  */
 function buildUrl(endpoint: string, query?: Record<string, string>): string {
-  const url = new URL(`${endpoint}`, STRAPI_URL);
+  const url = new URL(`${endpoint}`, API_URL);
   
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
@@ -94,7 +98,13 @@ export function getStrapiMediaUrl(media?: { url?: string } | null): string {
   if (!media || !media.url) return "";
   // Nếu url đã có domain thì trả về luôn, nếu không thì nối với baseURL
   if (media.url.startsWith("http")) return media.url;
-  const baseURL = process.env.NEXT_PUBLIC_STRAPI_URL || "";
+  
+const isServer = typeof window === "undefined";
+
+const API_URL = isServer
+  ? "http://localhost:1337"
+  : process.env.NEXT_PUBLIC_STRAPI_URL || "/api";
+  const baseURL = API_URL;
   return baseURL.replace(/\/$/, "") + media.url;
 }
 

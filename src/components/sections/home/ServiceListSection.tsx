@@ -1,10 +1,15 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import type { ServiceCategory, ServiceListSection as ServiceListSectionType } from "@/types/home";
 import dynamic from "next/dynamic";
+import { useMemo, useState } from "react";
 
+const isServer = typeof window === "undefined";
+
+const API_URL = isServer
+  ? "http://strapi:1337"
+  : process.env.NEXT_PUBLIC_STRAPI_URL || "/api";
 // Import react-compare-image động để tránh SSR lỗi
 const ReactCompareImage = dynamic(() => import('react-compare-image'), { ssr: false });
-import type { ServiceCategory, ServiceListSection as ServiceListSectionType, ServiceReference } from "@/types/home";
 // Nếu chưa có trường description, có thể bổ sung vào ServiceReference ở types/home.ts
 import { StrapiImage } from "@/components/ui/StrapiImage";
 
@@ -13,7 +18,7 @@ function getStrapiMediaUrl(media?: { url?: string } | null): string {
   if (!media || !media.url) return "";
   // Nếu url đã có domain thì trả về luôn, nếu không thì nối với baseURL
   if (media.url.startsWith("http")) return media.url;
-  const baseURL = process.env.NEXT_PUBLIC_STRAPI_URL || "";
+  const baseURL = API_URL;
   return baseURL.replace(/\/$/, "") + media.url;
 }
 
