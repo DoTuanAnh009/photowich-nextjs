@@ -5,7 +5,7 @@ const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || '';
 
 // Fetch chi tiết dịch vụ theo slug
 export async function fetchDetailService(slug: string): Promise<ServiceDetail | null> {
-  const url = `${STRAPI_URL}/api/services?filters[slug][$eq]=${slug}` +
+  const url = `${STRAPI_URL}/services?filters[slug][$eq]=${slug}` +
     '&populate[background_image][populate]=*'
     + '&populate[category][fields][0]=title'
     + '&populate[category][fields][1]=slug'
@@ -30,7 +30,7 @@ export async function fetchDetailService(slug: string): Promise<ServiceDetail | 
 export async function fetchAllServices(): Promise<ServiceDetail[]> {
   // Use exact query string for service list
   // Use correct array-style populate query string for Strapi v5
-  const url = `${STRAPI_URL}/api/services?populate[0]=background_image_before&populate[1]=background_image_after&populate[2]=background_image&populate[3]=seo`;
+  const url = `${STRAPI_URL}/services?populate[0]=background_image_before&populate[1]=background_image_after&populate[2]=background_image&populate[3]=seo`;
   const res = await fetch(url);
   if (!res.ok) return [];
 

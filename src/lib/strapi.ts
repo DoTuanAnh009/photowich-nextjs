@@ -5,9 +5,7 @@
  * All API requests should go through this module.
  */
 
-import { BlogCategory } from '@/types/blog';
-import type { StrapiResponse, StrapiMedia, StrapiPagination, ServiceCategory } from '@/types/strapi';
-import qs from 'qs';
+import type { ServiceCategory, StrapiMedia, StrapiPagination, StrapiResponse } from '@/types/strapi';
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
@@ -29,7 +27,7 @@ interface StrapiResponseWithMeta<T> extends StrapiResponse<T> {
  * Build URL with query parameters for Strapi API
  */
 function buildUrl(endpoint: string, query?: Record<string, string>): string {
-  const url = new URL(`/api${endpoint}`, STRAPI_URL);
+  const url = new URL(`${endpoint}`, STRAPI_URL);
   
   if (query) {
     Object.entries(query).forEach(([key, value]) => {

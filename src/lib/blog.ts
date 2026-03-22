@@ -1,6 +1,6 @@
-import qs from 'qs';
 import type { BlogCategory, BlogIndexData, BlogPostSummary } from '@/types/blog';
 import type { StrapiResponse } from '@/types/strapi';
+import qs from 'qs';
 
 const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
@@ -18,7 +18,7 @@ export async function fetchBlogIndex(): Promise<BlogIndexData | null> {
       seo: { populate: '*' },
     },
   });
-  const res = await fetch(`${API_URL}/api/blog?${query}`);
+  const res = await fetch(`${API_URL}/blog?${query}`);
   if (!res.ok) return null;
   const json: StrapiResponse<BlogIndexData> = await res.json();
   return json.data ?? null;

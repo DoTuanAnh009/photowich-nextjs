@@ -1,6 +1,6 @@
-import qs from 'qs';
 import type { BlogPostSummary, BlogTag } from '@/types/blog';
 import type { StrapiResponse } from '@/types/strapi';
+import qs from 'qs';
 
 const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
@@ -27,7 +27,7 @@ export async function fetchRelatedPostsByTags(tags: BlogTag[], excludeSlug: stri
       category: { fields: ['title', 'slug'] },
     },
   });
-  const res = await fetch(`${API_URL}/api/blog-posts?${query}`);
+  const res = await fetch(`${API_URL}/blog-posts?${query}`);
   if (!res.ok) return [];
   const json: StrapiResponse<BlogPostSummary[]> = await res.json();
   return json.data || [];
