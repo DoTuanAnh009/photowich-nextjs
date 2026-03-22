@@ -1,7 +1,8 @@
+export const dynamic = "force-dynamic";
+import { FloatingButtons, FooterWrapper, HeaderWrapper } from "@/components/layout";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { HeaderWrapper, FooterWrapper, FloatingButtons } from "@/components/layout";
 
 const inter = Inter({
   variable: "--font-inter",

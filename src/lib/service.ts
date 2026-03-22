@@ -33,6 +33,9 @@ export async function fetchAllServices(): Promise<ServiceDetail[]> {
   // Use exact query string for service list
   // Use correct array-style populate query string for Strapi v5
   const url = `${baseUrl}/api/services?populate[0]=background_image_before&populate[1]=background_image_after&populate[2]=background_image&populate[3]=seo`;
+  console.log("BASE URL RUNTIME:", baseUrl);
+
+  console.log("FETCH URL:", url);
   const res = await fetch(url, { cache: 'no-store' });
   if (!res.ok) return [];
 
