@@ -40,20 +40,6 @@ function buildUrl(endpoint: string, query?: Record<string, string>): string {
 }
 
 /**
- * Get request headers for Strapi API
- */
-function getHeaders(): HeadersInit {
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json',
-  };
-  if (baseUrl) {
-    headers['Authorization'] = `Bearer ${baseUrl}`;
-  }
-
-  return headers;
-}
-
-/**
  * Fetch data from Strapi API
  * 
  * @example
@@ -74,7 +60,6 @@ export async function fetchStrapi<T>({
   const url = buildUrl(endpoint, query);
 
   const response = await fetch(url, {
-    headers: getHeaders(),
     next: {
       tags,
       revalidate,
