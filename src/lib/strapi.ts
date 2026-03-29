@@ -28,7 +28,7 @@ interface StrapiResponseWithMeta<T> extends StrapiResponse<T> {
  * Build URL with query parameters for Strapi API
  */
 function buildUrl(endpoint: string, query?: Record<string, string>): string {
-  const url = new URL(`/api/${endpoint}`,  baseUrl);
+  const url = new URL(`/api${endpoint}`,  baseUrl);
   
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
