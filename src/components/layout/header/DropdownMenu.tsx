@@ -2,17 +2,17 @@
  * Dropdown Menu Component
  */
 
-import Link from 'next/link';
-import type { MenuCategory } from '@/types/header';
-import PhotographyIcon from '@/components/icons/PhotographyIcon';
-import VideographyIcon from '@/components/icons/VideographyIcon';
-import SofaIcon from '@/components/icons/SofaIcon';
-import LaptopIcon from '@/components/icons/LaptopIcon';
-import MarketingIcon from '@/components/icons/MarketingIcon';
-import MagicWandIcon from '@/components/icons/MagicWandIcon';
 import EraserIcon from '@/components/icons/EraserIcon';
 import Image360Icon from '@/components/icons/Image360Icon';
+import LaptopIcon from '@/components/icons/LaptopIcon';
+import MagicWandIcon from '@/components/icons/MagicWandIcon';
+import MarketingIcon from '@/components/icons/MarketingIcon';
+import PhotographyIcon from '@/components/icons/PhotographyIcon';
+import SofaIcon from '@/components/icons/SofaIcon';
 import SunIcon from '@/components/icons/SunIcon';
+import VideographyIcon from '@/components/icons/VideographyIcon';
+import type { MenuCategory } from '@/types/header';
+import Link from 'next/link';
 
 const iconMap: Record<string, React.ReactNode> = {
     about: <span className="material-symbols-outlined mr-3">workspace_premium</span>,
@@ -69,7 +69,7 @@ export function DropdownMenu({ categories }: DropdownMenuProps) {
                 </h4>
               )}
               <ul className="space-y-1">
-                {category.items.map((item) => (
+                {category.items?.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}

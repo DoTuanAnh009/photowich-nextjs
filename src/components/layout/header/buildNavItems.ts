@@ -4,9 +4,9 @@
  * Utility function to build navigation items with dynamic services.
  */
 
-import type { HeaderProps, NavItem, MenuCategory } from '@/types/header';
-import type { BlogCategory } from '@/types/blog';
 import type { NavService } from '@/lib/strapi';
+import type { BlogCategory } from '@/types/blog';
+import type { MenuCategory, NavItem } from '@/types/header';
 
 
 export function buildNavItems(
@@ -15,7 +15,9 @@ export function buildNavItems(
 ): NavItem[] {
   // Build services dropdown from API data
   const servicesDropdown: MenuCategory[] = [];
+  let serviceDetail = "";
   if (services) {
+     serviceDetail = services[Object.keys(services)[0]]?.flatMap((arr) => arr).find((s) => s.slug === 'real-estate-photo-editing')?.slug ?? "";
     Object.entries(services).forEach(([cat, arr]) => {
       if (arr.length > 0) {
         servicesDropdown.push({
@@ -53,12 +55,12 @@ export function buildNavItems(
   if (blogCategories && blogCategories.length > 0) {
     blogDropdown.push({
       title: 'Blog Categories',
-      items: blogCategories.map((cat) => ({
-        label: cat.title,
-        description: cat.description || '',
-        href: `/blog/${cat.slug}`,
-        // icon: cat.icon (nếu có)
-      })),
+      // items: blogCategories.map((cat) => ({
+      //   label: cat.title,
+      //   description: cat.description || '',
+      //   href: `/blog/${cat.slug}`,
+      //   // icon: cat.icon (nếu có)
+      // })),
     });
   }
 
@@ -66,7 +68,7 @@ export function buildNavItems(
     { label: 'Home', href: '/' },
     {
       label: 'Services',
-      href: '/services',
+      href: `/service/${serviceDetail}`,
       dropdown: servicesDropdown,
     },
     { label: 'Bulk Order', href: '/bulk-order' },
@@ -74,7 +76,6 @@ export function buildNavItems(
       ? {
           label: 'Blog',
           href: '/blogs',
-          dropdown: blogDropdown,
         }
       : { label: 'Blog', href: '/blogs' },
     {

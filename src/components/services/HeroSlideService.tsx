@@ -1,3 +1,4 @@
+import { StrapiImage } from '@/components/ui/StrapiImage';
 import type { BlogHero } from '@/types/blog';
 
 export function HeroSlideService(hero: BlogHero) {
@@ -23,8 +24,12 @@ const baseUrl =
   return (
     <section
       className="relative w-full h-[400px] md:h-[420px] lg:h-[480px] overflow-hidden"
-      style={bgUrl ? { backgroundImage: `linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.65)),url('${bgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' } : { background: '#1a365d' }}
     >
+      <StrapiImage
+              media={hero.featured_image}
+              alt={hero.title}
+              className="absolute inset-0 w-full h-full object-cover z-0"
+              fill/>
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
         <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight flex flex-wrap justify-center gap-x-1 gap-y-2 select-none">
           {chars.map((char, i) => (

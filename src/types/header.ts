@@ -15,7 +15,7 @@ export interface SubMenuItem {
 
 export interface MenuCategory {
   title: string;
-  items: SubMenuItem[];
+  items?: SubMenuItem[];
 }
 
 export interface NavItem {

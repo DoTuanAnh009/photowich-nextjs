@@ -1,3 +1,4 @@
+import { StrapiImage } from '@/components/ui/StrapiImage';
 import type { BlogCategory, BlogHero } from '@/types/blog';
 
 interface BlogHeroProps {
@@ -10,23 +11,17 @@ export function BlogHero({ hero, categories = [] }: BlogHeroProps) {
   const chars = (hero.title || 'Blogs').split(/(\s+)/);
 const isServer = typeof window === "undefined";
 
-const API_URL = isServer
-  ? "http://strapi:1337"
-  : process.env.NEXT_PUBLIC_STRAPI_URL || "/api";
-  // Get background image url
-  const bgUrl = hero.featured_image?.url
-    ? API_URL
-      ? API_URL.replace(/\/$/, '') + hero.featured_image.url
-      : hero.featured_image.url
-    : undefined;
-
   const descDelay = chars.length * 40 + 200;
 
   return (
     <section
       className="relative flex flex-col items-center justify-center text-center px-6 h-[400px] md:h-[420px] lg:h-[480px] w-full overflow-hidden"
-      style={bgUrl ? { backgroundImage: `linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.65)),url('${bgUrl}')`, backgroundSize: 'cover', backgroundPosition: 'center' } : { background: '#1a365d' }}
     >
+      <StrapiImage
+        media={hero.featured_image}
+        alt={hero.title}
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        fill/>
       <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight flex flex-wrap justify-center gap-x-1 gap-y-2 select-none">
         {chars.map((char, i) => (
           <span
