@@ -7,8 +7,8 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 function ChatButton() {
   return (
@@ -25,7 +25,7 @@ function ChatButton() {
 function FreeTrialButton() {
   return (
     <Link
-      href="/contact"
+      href="/bulk-order"
       className="h-14 px-6 rounded-full bg-navy-custom text-white flex items-center gap-3 shadow-xl hover:scale-105 active:scale-95 transition-all uppercase tracking-wider"
     >
       <span className="material-symbols-outlined">ads_click</span>

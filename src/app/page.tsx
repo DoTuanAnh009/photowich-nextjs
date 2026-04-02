@@ -11,10 +11,6 @@ import { fetchStrapi } from '@/lib/strapi';
 import type { Homepage } from '@/types/strapi';
 import type { Metadata } from 'next';
 
-/**
- * Build homepage populate query for Strapi
- * Each section needs explicit populate for nested relations
- */
 function buildHomepageQuery(): Record<string, string> {
   return {
     'populate[seo]': '*',
@@ -25,10 +21,14 @@ function buildHomepageQuery(): Record<string, string> {
     'populate[sections][on][home.service-list-section][populate][services][populate][2]': 'background_image_before',
     'populate[sections][on][home.service-list-section][populate][services][populate][3]': 'background_image_after',
     'populate[sections][on][home.service-list-section][populate][services][populate][4]': 'category',
+    'populate[sections][on][home.blog-highlight-section][populate][blog_posts][populate][0]': 'hero.featured_image',
+    'populate[sections][on][home.blog-highlight-section][populate][blog_posts][populate][1]': 'author.avatar',
+    'populate[sections][on][home.blog-highlight-section][populate][blog_posts][populate][2]': 'category',
     'populate[sections][on][home.testimonial-section][populate]': 'testimonials.avatar',
     'populate[sections][on][home.partners-section][populate]': 'partners.logo',
     'populate[sections][on][home.try-for-free-section][populate]': 'bullets',
     'populate[sections][on][sections.process-steps-section][populate]': '*',
+    'populate[sections][on][home.how-to-work-section][populate]': '*',
   };
 }
 
@@ -57,7 +57,7 @@ async function getHomepage(): Promise<Homepage | null> {
 export async function generateMetadata(): Promise<Metadata> {
   const homepage = await getHomepage();
   const seo = homepage?.seo;
-  
+
   return generatePageMetadata({
     title: seo?.title,
     description: seo?.description,

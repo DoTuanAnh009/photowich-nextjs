@@ -5,20 +5,22 @@
  * This is the bridge between CMS data structure and UI.
  */
 
-import { DynamicZoneComponent, ServiceDetail, Services, ShowcaseSection } from "@/types/strapi";
+import { DynamicZoneComponent, Services, ShowcaseSection } from "@/types/strapi";
 
 
 // Import homepage section components
+import { BlogHighlightSection } from "@/components/sections/home/BlogHighlightSection";
 import { HeroSliderSection } from "@/components/sections/home/HeroSliderSection";
-import { WhyChooseUsSection } from "@/components/sections/home/WhyChooseUsSection";
-import { ServiceListSection } from "@/components/sections/home/ServiceListSection";
-import { ProcessStepsSection } from "@/components/sections/home/ProcessStepsSection";
-import { TestimonialSection } from "@/components/sections/home/TestimonialSection";
+import { HowToWorkSection } from "@/components/sections/home/HowToWorkSection";
 import { PartnersSection } from "@/components/sections/home/PartnersSection";
+import { ProcessStepsSection } from "@/components/sections/home/ProcessStepsSection";
+import { ServiceListSection } from "@/components/sections/home/ServiceListSection";
+import { TestimonialSection } from "@/components/sections/home/TestimonialSection";
 import { TryForFreeSection } from "@/components/sections/home/TryForFreeSection";
+import { WhyChooseUsSection } from "@/components/sections/home/WhyChooseUsSection";
+import { ExploreServicesSection } from "../sections/service/ExploreServicesSection";
 import { FAQSection } from "../sections/service/FAQSection";
 import { RichTextSection } from "../sections/service/RichTextSection";
-import { ExploreServicesSection } from "../sections/service/ExploreServicesSection";
 import { ShowCaseSection } from "../sections/service/ShowcaseSection";
 import { HeroSlideService } from "../services/HeroSlideService";
 
@@ -34,6 +36,8 @@ const componentRegistry: Record<string, React.ComponentType<any>> = {
   'sections.rich-text-section': RichTextSection,
   'blog.text-section': RichTextSection,
   'sections.process-steps-section': ProcessStepsSection,
+  'home.how-to-work-section': HowToWorkSection,
+  'home.blog-highlight-section': BlogHighlightSection,
   'home.testimonial-section': TestimonialSection,
   'home.partners-section': PartnersSection,
   'sections.faq-section': FAQSection,
@@ -44,7 +48,7 @@ const componentRegistry: Record<string, React.ComponentType<any>> = {
 
 interface DynamicZoneProps {
   sections: DynamicZoneComponent[] | null | undefined;
-  services?: Services[]| null | undefined;
+  services?: Services[] | null | undefined;
 }
 
 /**

@@ -13,29 +13,24 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 interface BlogDetailPageProps {
-  params: { category: string; detail: string };
+  params: Promise<{ category: string; detail: string }>;
+}
+
+async function resolveParams(params: Promise<any>) {
+  const resolved = await params;
+  if (typeof resolved === 'string') {
+    try {
+      return JSON.parse(resolved);
+    } catch {
+      return resolved;
+    }
+  }
+  return resolved;
 }
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
-    
-    let realParams = params;
-  if (typeof params === 'string') {
-    try {
-      realParams = JSON.parse(params);
-    } catch (e) {
-      console.error('Cannot parse params string:', params);
-    }
-  } else if (params && typeof (params as any).then === 'function') {
-    realParams = await params;
-    if (typeof realParams === 'string') {
-      try {
-        realParams = JSON.parse(realParams);
-      } catch (e) {
-        console.error('Cannot parse awaited params string:', realParams);
-      }
-    }
-  }
-  const post: BlogPostDetail | null = await fetchBlogDetailBySlug(realParams?.detail);
+  const resolvedParams = await resolveParams(params);
+  const post: BlogPostDetail | null = await fetchBlogDetailBySlug(resolvedParams?.detail);
   if (!post) return notFound();
   // Fetch related posts by tags (loại trừ bài hiện tại)
   const relatedPosts = post.tags && post.tags.length > 0
@@ -329,27 +324,28 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 }
 
 export async function generateMetadata(
-  props: { params: { category: string; detail: string } }
+  props: { params: Promise<{ category: string; detail: string }> }
 ) {
   const { params } = props;
+  const resolvedParams = await resolveParams(params);
   // SEO-first: fetch post detail để lấy metadata động
-  const post: BlogPostDetail | null = await fetchBlogDetailBySlug(params.detail);
+  const post: BlogPostDetail | null = await fetchBlogDetailBySlug(resolvedParams.detail);
   if (!post) {
     return {
       title: 'Blog Detail',
       description: '',
-      alternates: { canonical: `/blogs/${params.category}/${params.detail}` },
+      alternates: { canonical: `/blogs/${resolvedParams.category}/${resolvedParams.detail}` },
     };
   }
   const seo = post.seo || {} as BlogSEO;
   return {
     title: seo.title || post.title,
     description: seo.description || post.excerpt || '',
-    alternates: { canonical: `/blogs/${params.category}/${params.detail}` },
+    alternates: { canonical: `/blogs/${resolvedParams.category}/${resolvedParams.detail}` },
     openGraph: {
       title: seo.title || post.title,
       description: seo.description || post.excerpt || '',
-      url: `/blogs/${params.category}/${params.detail}`,
+      url: `/blogs/${resolvedParams.category}/${resolvedParams.detail}`,
       type: 'article',
       images: post.hero?.featured_image?.url ? [post.hero.featured_image.url] : undefined,
     },
@@ -357,6 +353,7 @@ export async function generateMetadata(
       card: 'summary_large_image',
       title: seo.title || post.title,
       description: seo.description || post.excerpt || '',
+      url: `/blogs/${resolvedParams.category}/${resolvedParams.detail}`,
       images: post.hero?.featured_image?.url ? [post.hero.featured_image.url] : undefined,
     },
   };

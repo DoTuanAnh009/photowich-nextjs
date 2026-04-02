@@ -4,9 +4,9 @@
 
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
 import type { NavItem } from '@/types/header';
+import Link from 'next/link';
+import { useState } from 'react';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -55,9 +55,8 @@ export function MobileMenu({ isOpen, onClose, navItems }: MobileMenuProps) {
                   >
                     {item.label}
                     <span
-                      className={`material-symbols-outlined transition-transform ${
-                        openDropdown === item.label ? 'rotate-180' : ''
-                      }`}
+                      className={`material-symbols-outlined transition-transform ${openDropdown === item.label ? 'rotate-180' : ''
+                        }`}
                     >
                       expand_more
                     </span>
@@ -71,7 +70,7 @@ export function MobileMenu({ isOpen, onClose, navItems }: MobileMenuProps) {
                               {category.title}
                             </h4>
                           )}
-                          {category.items.map((subItem) => (
+                          {category.items?.map((subItem) => (
                             <Link
                               key={subItem.href}
                               href={subItem.href}
@@ -102,7 +101,7 @@ export function MobileMenu({ isOpen, onClose, navItems }: MobileMenuProps) {
         {/* Mobile CTA */}
         <div className="p-4">
           <Link
-            href="/contact"
+            href="/bulk-order"
             onClick={onClose}
             className="block w-full bg-primary text-white px-4 py-3 rounded-lg text-sm font-bold text-center hover:bg-primary/90 transition-colors uppercase tracking-wider"
           >

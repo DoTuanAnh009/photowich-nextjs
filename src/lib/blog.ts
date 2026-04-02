@@ -49,7 +49,7 @@ export async function fetchLatestPosts(limit = 4): Promise<BlogPostSummary[]> {
 }
 
 // Fetch posts by category slug
-export async function fetchPostsByCategory(slug: string, limit = 6): Promise<BlogPostSummary[]> {
+export async function fetchPostsByCategory(slug: string, limit = 12): Promise<BlogPostSummary[]> {
   const query = buildQuery({
     filters: { category: { slug: { $eq: slug } } },
     sort: 'publishedAt:desc',
@@ -58,6 +58,7 @@ export async function fetchPostsByCategory(slug: string, limit = 6): Promise<Blo
     populate: {
       author: { fields: ['name', 'slug'] },
       hero: { populate: ['featured_image'] },
+      category: { fields: ['title', 'slug'] },
     },
   });
   const res = await fetch(`${baseUrl}/api/blog-posts?${query}`, { cache: 'no-store' });
@@ -79,4 +80,18 @@ export async function getBlogCategoriesForNav(): Promise<BlogCategory[]> {
   if (!res.ok) return [];
   const json: StrapiResponse<BlogCategory[]> = await res.json();
   return json.data || [];
+}
+
+/**
+ * Fetch a specific category by slug for the category detail page
+ */
+export async function fetchCategoryBySlug(slug: string): Promise<BlogCategory | null> {
+  const query = qs.stringify({
+    filters: { slug: { $eq: slug }, is_active: { $eq: true } },
+    fields: ['title', 'slug', 'description'],
+  }, { encodeValuesOnly: true });
+  const res = await fetch(`${baseUrl}/api/blog-categories?${query}`, { cache: 'no-store' });
+  if (!res.ok) return null;
+  const json: StrapiResponse<BlogCategory[]> = await res.json();
+  return (json.data && json.data.length > 0) ? json.data[0] : null;
 }

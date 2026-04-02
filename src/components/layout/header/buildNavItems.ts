@@ -17,7 +17,7 @@ export function buildNavItems(
   const servicesDropdown: MenuCategory[] = [];
   let serviceDetail = "";
   if (services) {
-     serviceDetail = services[Object.keys(services)[0]]?.flatMap((arr) => arr).find((s) => s.slug === 'real-estate-photo-editing')?.slug ?? "";
+    serviceDetail = services[Object.keys(services)[0]]?.flatMap((arr) => arr).find((s) => s.slug === 'real-estate-photo-editing')?.slug ?? "";
     Object.entries(services).forEach(([cat, arr]) => {
       if (arr.length > 0) {
         servicesDropdown.push({
@@ -55,12 +55,12 @@ export function buildNavItems(
   if (blogCategories && blogCategories.length > 0) {
     blogDropdown.push({
       title: 'Blog Categories',
-      // items: blogCategories.map((cat) => ({
-      //   label: cat.title,
-      //   description: cat.description || '',
-      //   href: `/blog/${cat.slug}`,
-      //   // icon: cat.icon (nếu có)
-      // })),
+      items: blogCategories.map((cat) => ({
+        label: cat.title,
+        description: cat.description || '',
+        href: `/blogs/${cat.slug}`,
+        // icon: cat.icon (nếu có)
+      })),
     });
   }
 
@@ -74,9 +74,10 @@ export function buildNavItems(
     { label: 'Bulk Order', href: '/bulk-order' },
     blogDropdown.length > 0
       ? {
-          label: 'Blog',
-          href: '/blogs',
-        }
+        label: 'Blog',
+        href: '/blogs',
+        dropdown: blogDropdown,
+      }
       : { label: 'Blog', href: '/blogs' },
     {
       label: 'Company',

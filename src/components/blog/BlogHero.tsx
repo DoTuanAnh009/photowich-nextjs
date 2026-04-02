@@ -4,12 +4,13 @@ import type { BlogCategory, BlogHero } from '@/types/blog';
 interface BlogHeroProps {
   hero: BlogHero;
   categories?: BlogCategory[];
+  activeSlug?: string;
 }
 
-export function BlogHero({ hero, categories = [] }: BlogHeroProps) {
+export function BlogHero({ hero, categories = [], activeSlug = 'all' }: BlogHeroProps) {
   // Split title into array of chars, preserving spaces
   const chars = (hero.title || 'Blogs').split(/(\s+)/);
-const isServer = typeof window === "undefined";
+  const isServer = typeof window === "undefined";
 
   const descDelay = chars.length * 40 + 200;
 
@@ -21,47 +22,57 @@ const isServer = typeof window === "undefined";
         media={hero.featured_image}
         alt={hero.title}
         className="absolute inset-0 w-full h-full object-cover z-0"
-        fill/>
-      <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight flex flex-wrap justify-center gap-x-1 gap-y-2 select-none">
-        {chars.map((char, i) => (
-          <span
-            key={i}
-            className={char === ' ' ? 'inline-block w-2 md:w-3' : ''}
-            style={{
-              opacity: 0,
-              animation: `fadeInChar 0.4s cubic-bezier(0.4,0,0.2,1) forwards`,
-              animationDelay: `${i * 40}ms`,
-              transition: 'opacity 0.2s',
-            }}
-          >
-            {char}
-          </span>
-        ))}
-      </h1>
-      {/* Category buttons */}
+        fill />
       
-      {/* Description appears after title animation */}
-      {hero.excerpt && (
-        <p
-          className="text-white/90 text-lg max-w-2xl font-light leading-relaxed mt-6 transition-opacity duration-500 opacity-0 animate-fadein-desc"
-          style={{ animationDelay: `${descDelay}ms`, animationFillMode: 'forwards' }}
-        >
-          {hero.excerpt}
-        </p>
-      )}
-      {categories.length > 0 && (
-        <div className="mt-10 flex flex-wrap justify-center gap-3 max-w-4xl px-4">
-          {categories.map((cat) => (
-            <a
-              key={cat.slug}
-              href={`/blog/${cat.slug}`}
-              className="px-5 py-2.5 bg-white text-primary rounded shadow-sm text-sm font-bold hover:bg-slate-100 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+      {/* Dark overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/40 z-0" />
+
+      <div className="relative z-10 flex flex-col items-center max-w-5xl w-full">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight flex flex-wrap justify-center gap-x-1 gap-y-2 select-none">
+          {chars.map((char, i) => (
+            <span
+              key={i}
+              className={char === ' ' ? 'inline-block w-2 md:w-3' : ''}
+              style={{
+                opacity: 0,
+                animation: `fadeInChar 0.4s cubic-bezier(0.4,0,0.2,1) forwards`,
+                animationDelay: `${i * 40}ms`,
+                transition: 'opacity 0.2s',
+              }}
             >
-              {cat.title}
-            </a>
+              {char}
+            </span>
           ))}
-        </div>
-      )}
+        </h1>
+
+        {/* Category buttons - Only show on main blog page (when no activeSlug is provided) */}
+        {!activeSlug || activeSlug === 'all' ? (
+          <div 
+            className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 opacity-0 animate-fadein-desc"
+            style={{ animationDelay: `${descDelay - 100}ms` }}
+          >
+            {categories.map((cat) => (
+              <a
+                key={cat.slug}
+                href={`/blogs/${cat.slug}`}
+                className="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 border bg-white/10 text-white border-white/20 hover:bg-white/20 backdrop-blur-sm shadow-sm hover:shadow-md"
+              >
+                {cat.title}
+              </a>
+            ))}
+          </div>
+        ) : null}
+
+        {/* Description appears after title animation */}
+        {hero.excerpt && (
+          <p
+            className="text-white/90 text-lg max-w-2xl font-light leading-relaxed transition-opacity duration-500 opacity-0 animate-fadein-desc"
+            style={{ animationDelay: `${descDelay}ms`, animationFillMode: 'forwards' }}
+          >
+            {hero.excerpt}
+          </p>
+        )}
+      </div>
       <style>{`
         @keyframes fadeInChar {
           from { opacity: 0; transform: translateY(20px); }

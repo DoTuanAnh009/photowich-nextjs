@@ -17,10 +17,10 @@ export interface ServiceCategory {
 
 import type {
   BaseComponent,
-  StrapiMedia,
-  StrapiBaseEntity,
-  StrapiResponse,
   SEO,
+  StrapiBaseEntity,
+  StrapiMedia,
+  StrapiResponse,
 } from './strapi';
 
 /* ============================================================================
@@ -102,6 +102,18 @@ export interface ProcessStepsSection extends BaseComponent {
 }
 
 /* ============================================================================
+ * Homepage — How To Work Section
+ * ========================================================================== */
+
+export interface HowToWorkSection extends BaseComponent {
+  __component: 'home.how-to-work-section';
+  title?: string | null;
+  description?: string | null;
+  items: ProcessStep[];
+  background_image?: StrapiMedia | null;
+}
+
+/* ============================================================================
  * Homepage — Testimonial Section
  * ========================================================================== */
 
@@ -140,19 +152,41 @@ export interface PartnersSection extends BaseComponent {
  * Homepage — Blog Highlight Section
  * ========================================================================== */
 
+export interface BlogAuthor {
+  id: number;
+  documentId: string;
+  name: string;
+  avatar?: StrapiMedia | null;
+  slug?: string;
+}
+
+export interface BlogCategory {
+  id: number;
+  documentId: string;
+  name: string;
+  slug?: string;
+}
+
 export interface BlogReference extends StrapiBaseEntity {
   title: string;
-  description?: string;
-  author?: string | null;
-  date?: string;
+  excerpt?: string;
+  author?: BlogAuthor | null;
+  category?: BlogCategory | null;
+  publishedAt?: string;
+  createdAt?: string;
   slug: string;
-  cover_image?: StrapiMedia | null;
+  hero?: {
+    id: number;
+    title?: string;
+    featured_image?: StrapiMedia | null;
+  } | null;
 }
 
 export interface BlogHighlightSection extends BaseComponent {
   __component: 'home.blog-highlight-section';
   heading?: string | null;
-  blogs: BlogReference[];
+  description?: string | null;
+  blog_posts: BlogReference[];
 }
 
 /* ============================================================================
@@ -167,7 +201,7 @@ export interface TryForFreeSection extends BaseComponent {
     heading: string;
     description: string;
   }>;
-  services?: { title: string; slug: string, documentId:string }[];
+  services?: { title: string; slug: string, documentId: string }[];
 }
 
 /* ============================================================================
@@ -179,6 +213,7 @@ export type HomepageSection =
   | WhyChooseUsSection
   | ServiceListSection
   | ProcessStepsSection
+  | HowToWorkSection
   | TestimonialSection
   | PartnersSection
   | BlogHighlightSection

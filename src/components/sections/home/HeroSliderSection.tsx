@@ -86,7 +86,7 @@ export function HeroSliderSection({ slides }: HeroSliderSection) {
           <div
             key={slide.id}
             className={`absolute inset-0 w-full h-full min-h-[420px] md:min-h-[600px] transition-all duration-700 ease-in-out
-              ${idx === activeIndex ? "opacity-100 scale-100 z-10 animate-fade-in" : "opacity-0 scale-95 z-0 pointer-events-none"}`}
+              ${idx === activeIndex ? "opacity-100 scale-100 z-10" : "opacity-0 scale-95 z-0 pointer-events-none"}`}
             aria-hidden={idx !== activeIndex}
             aria-current={idx === activeIndex}
             role="group"

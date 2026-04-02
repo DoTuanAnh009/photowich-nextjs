@@ -61,12 +61,6 @@ export function ShowCaseSection({ heading, before_after, cta_text, cta_link, des
   // Slide UI
   if (is_slide) {
     const [active, setActive] = useState(0);
-    useEffect(() => {
-      const timer = setTimeout(() => {
-        setActive((prev) => (prev + 1) % before_after.length);
-      }, 4000);
-      return () => clearTimeout(timer);
-    }, [active, before_after.length]);
 
     const item = before_after[active];
     // Lấy slug và text từ item hoặc prop (ưu tiên item)
