@@ -1,6 +1,7 @@
 "use client";
 import type { ServiceCategory, ServiceListSection as ServiceListSectionType } from "@/types/home";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 const isServer = typeof window === "undefined";
@@ -162,20 +163,14 @@ const filteredServices = useMemo(() => (
       </div>
       {/* Button TRY OUR SERVICES cuối section */}
       <div className="flex justify-center mt-12">
-        <button
-          type="button"
-          className="fade-in-animate px-8 py-3 rounded-full border-2 border-navy-custom bg-navy-custom text-white font-bold text-base tracking-wide shadow transition-all duration-300 ease-in-out hover:bg-white hover:text-navy-custom hover:border-navy-custom focus:outline-none focus:ring-2 focus:ring-primary"
+        <Link
+          href={`/service/${services?.find((s) => s.slug === 'real-estate-photo-editing')?.slug ?? services?.[0]?.slug ?? 'real-estate-photo-editing'}`}
+          className="fade-in-animate inline-block px-8 py-3 rounded-full border-2 border-navy-custom bg-navy-custom text-white font-bold text-base tracking-wide shadow transition-all duration-300 ease-in-out hover:bg-white hover:text-navy-custom hover:border-navy-custom focus:outline-none focus:ring-2 focus:ring-primary"
           style={{ animationDelay: "300ms" }}
           aria-label="Try our services"
-          onClick={() => {
-            const el = document.getElementById('try-for-free-form');
-            if (el) {
-              el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-          }}
         >
           TRY OUR SERVICES
-        </button>
+        </Link>
       </div>
     </section>
   );

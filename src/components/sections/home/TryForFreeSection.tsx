@@ -95,7 +95,7 @@ export function TryForFreeSection({ heading, bullets, services }: TryForFreeSect
     };
     try {
       await submitLead(leadData);
-      const serviceName = services?.find(s => Number(s.documentId) === Number(form.service))?.title || "Chưa chọn";
+      const serviceName = services?.find(s => String(s.documentId) === String(form.service))?.title || "Chưa chọn";
       await sendLeadToTelegram({ ...leadData, service: { name: serviceName } });
       setSubmitStatus('success');
       setShowToast(true);
@@ -188,8 +188,8 @@ export function TryForFreeSection({ heading, bullets, services }: TryForFreeSect
                     >
                       <option value="">Choose service...</option>
                       {services && services.length > 0 ? (
-                        services.map((s) => (
-                          <option key={s.documentId} value={s.documentId}>{s.title}</option>
+                        services.map((s: any) => (
+                          <option key={s.documentId || s.id} value={s.documentId || s.id}>{s.title}</option>
                         ))
                       ) : (
                         <option value="other">Other</option>

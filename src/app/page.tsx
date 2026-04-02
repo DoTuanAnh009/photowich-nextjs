@@ -52,6 +52,27 @@ async function getHomepage(): Promise<Homepage | null> {
 }
 
 /**
+ * Fetch all services for DynamicZone (specifically TryForFreeSection)
+ */
+async function getAllServices(): Promise<any[]> {
+  try {
+    const { data } = await fetchStrapi<any[]>({
+      endpoint: '/services',
+      query: {
+        'fields[0]': 'title',
+        'fields[1]': 'slug',
+      },
+      tags: ['services'],
+      revalidate: 300,
+    });
+    return data ?? [];
+  } catch (error) {
+    console.error('Failed to fetch services for homepage:', error);
+    return [];
+  }
+}
+
+/**
  * Generate SEO metadata from CMS
  */
 export async function generateMetadata(): Promise<Metadata> {
@@ -67,7 +88,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const homepage = await getHomepage();
+  const [homepage, services] = await Promise.all([
+    getHomepage(),
+    getAllServices()
+  ]);
+  
   if (!homepage) {
     return (
       <main className="flex min-h-screen items-center justify-center">
@@ -79,7 +104,7 @@ export default async function HomePage() {
   }
   return (
     <main>
-      <DynamicZone sections={homepage.sections} />
+      <DynamicZone sections={homepage.sections} services={services} />
     </main>
   );
 }
