@@ -196,6 +196,7 @@ export interface BlogHighlightSection extends BaseComponent {
 export interface TryForFreeSection extends BaseComponent {
   __component: 'home.try-for-free-section';
   heading: string;
+  description: string;
   bullets: Array<{
     id: number;
     heading: string;

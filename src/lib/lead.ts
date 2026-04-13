@@ -16,7 +16,7 @@ export async function submitLead(data: {
   user_agent?: string;
   note?: string;
   message?: string;
-  attachments?: File | null;
+  imageLinks?: string[];
 }) {
   const payload = { data };
   const res = await fetch(`${baseUrl}/api/leads`, {

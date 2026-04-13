@@ -2,19 +2,21 @@
  * Footer Logo Component
  */
 
+import { StrapiImage } from '@/components/ui/StrapiImage';
+import { LOGO_MEDIA } from '@/lib/constants';
 import Link from 'next/link';
 
 export function FooterLogo() {
   return (
     <div className="flex flex-col gap-6 max-w-xs">
       <Link href="/" className="flex items-center gap-3">
-        <div className="logo-container scale-75 origin-left">
-          <div className="logo-backdrop" />
-          <div className="logo-house-shape">
-            <div className="logo-camera-lens">
-              <div className="logo-lens-inner" />
-            </div>
-          </div>
+        <div className="relative bg-white rounded-md">
+          <StrapiImage
+            media={LOGO_MEDIA}
+            width={34}
+            height={34}
+            className="object-contain"
+          />
         </div>
         <span className="text-white text-2xl font-bold">PhotoWitch</span>
       </Link>

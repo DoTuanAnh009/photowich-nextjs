@@ -2,7 +2,17 @@
 export async function sendLeadToTelegram(lead: any) {
   const botToken = "8368329411:AAG5BHXUw36yPk8uT6bvD0XD1Dprb3Au-GY";
   const chatId = "-1003592254550";
-  const message = `\n🔥 NEW LEAD\n\n👤 Họ tên: ${lead.full_name}\n📞 Điện thoại: ${lead.phone}\n📧 Email: ${lead.email}\n🏢 Công ty: ${lead.company || "Không có"}\n🛠 Dịch vụ: ${lead.service?.name || "Chưa chọn"}\n🌍 Nguồn: ${lead.source}\n\n📝 Nội dung:\n${lead.message || "Không có"}\n\n--------------------------\n🕒 Thời gian: ${new Date().toLocaleString("vi-VN")}\n`;
+  const message = `\n🔥 NEW LEAD\n\n👤 Họ tên: ${lead.full_name}\n📞 Điện thoại: ${lead.phone}\n📧 Email: ${lead.email}\n🏢 Công ty: ${lead.company || "Không có"}\n🛠 Dịch vụ: ${lead.service?.name || "Chưa chọn"}
+🌍 Nguồn: ${lead.source}
+
+📝 Nội dung:
+${lead.message || "Không có"}
+
+🖼️ Link ảnh:
+${lead.imageLinks && lead.imageLinks.length > 0 ? lead.imageLinks.filter(Boolean).join('\n') : "Không có"}
+
+--------------------------
+🕒 Thời gian: ${new Date().toLocaleString("vi-VN")}\n`;
 
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
   const payload = {

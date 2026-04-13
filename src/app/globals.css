@@ -83,53 +83,6 @@ body {
 }
 
 /* ============================================================================
- * Logo Styles
- * ========================================================================== */
-
-.logo-container {
-  position: relative;
-  width: 44px;
-  height: 44px;
-}
-
-.logo-backdrop {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--primary) 0%, #1a7fd4 100%);
-  border-radius: 12px;
-  transform: rotate(-6deg);
-}
-
-.logo-house-shape {
-  position: absolute;
-  inset: 4px;
-  background: white;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  clip-path: polygon(50% 0%, 100% 35%, 100% 100%, 0% 100%, 0% 35%);
-}
-
-.logo-camera-lens {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary) 0%, #1a7fd4 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 6px;
-}
-
-.logo-lens-inner {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: white;
-}
-
-/* ============================================================================
  * Before/After Slider Component
  * ========================================================================== */
 

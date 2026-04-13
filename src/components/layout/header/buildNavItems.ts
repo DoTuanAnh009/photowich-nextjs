@@ -71,7 +71,7 @@ export function buildNavItems(
       href: `/service/${serviceDetail}`,
       dropdown: servicesDropdown,
     },
-    { label: 'Bulk Order', href: '/bulk-order' },
+    { label: 'Order', href: '/bulk-order' },
     blogDropdown.length > 0
       ? {
         label: 'Blog',

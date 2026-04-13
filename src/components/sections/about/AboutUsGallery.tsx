@@ -1,4 +1,6 @@
 import React from 'react';
+import { StrapiImage } from '@/components/ui/StrapiImage';
+import { LOGO_MEDIA } from '@/lib/constants';
 
 // Gallery/logo fixed layout for About Us left section
 const galleryImages = [
@@ -17,12 +19,12 @@ export function AboutUsGallery() {
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-[80%] h-[80%] opacity-20 blur-2xl bg-primary absolute"></div>
           <div className="w-[60%] h-[60%] transition-transform duration-700 hover:scale-105 flex items-center justify-center">
-            <div className="bg-primary w-48 h-48 rounded-[3rem] shadow-2xl flex items-center justify-center relative transform rotate-3">
-              <div className="bg-white w-32 h-32 flex items-center justify-center" style={{clipPath: 'polygon(50% 0%, 0% 40%, 0% 100%, 100% 100%, 100% 40%)'}}>
-                <div className="w-12 h-12 rounded-full border-4 border-primary bg-white flex items-center justify-center">
-                  <div className="w-4 h-4 rounded-full bg-primary"></div>
-                </div>
-              </div>
+            <div className="relative w-48 h-48 drop-shadow-2xl transform rotate-3">
+              <StrapiImage 
+                media={LOGO_MEDIA} 
+                fill 
+                className="object-contain"
+              />
             </div>
           </div>
         </div>

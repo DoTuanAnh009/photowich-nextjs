@@ -2,8 +2,8 @@
  * Footer Links Component
  */
 
-import Link from 'next/link';
 import type { FooterSection } from '@/types/footer';
+import Link from 'next/link';
 
 interface FooterLinksProps {
   sections: FooterSection[];
