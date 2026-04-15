@@ -30,7 +30,7 @@ export function ShowCaseSection({ heading, before_after, cta_text, cta_link, des
       const displayTitle = item.caption || item.description || 'Service';
       return (
         <div className={
-          `relative w-full h-full mx-auto rounded-xl overflow-hidden group cursor-pointer shadow-lg [&>div]:!absolute [&>div]:!inset-0 [&_img]:object-cover [&_img]:h-full [&_img]:w-full` +
+          `relative w-full h-full mx-auto rounded-xl overflow-hidden group cursor-pointer shadow-lg [&_img]:object-cover [&_img]:h-full [&_img]:w-full transition-all duration-500` +
           (is_slide ? '' : ' ')
         }>
           <>
@@ -67,6 +67,12 @@ export function ShowCaseSection({ heading, before_after, cta_text, cta_link, des
     const orderSlug = cta_link || '';
     return (
       <section className="py-12 bg-slate-50 dark:bg-slate-900/50">
+        <style>{`
+          [data-testid="container"] {
+            width: 100% !important;
+            height: 100% !important;
+          }
+        `}</style>
         <div className="max-w-6xl mx-auto px-6 flex flex-col gap-8">
           {heading && (
             <h2 className="text-2xl md:text-4xl font-black text-center uppercase tracking-tight text-navy-custom dark:text-white">
@@ -103,7 +109,7 @@ export function ShowCaseSection({ heading, before_after, cta_text, cta_link, des
                     <div className="absolute top-6 right-6 z-20 pointer-events-none">
                       <span className="bg-blue-600/90 backdrop-blur-sm text-white text-[10px] font-black px-3 py-1.5 rounded-full shadow-lg uppercase tracking-widest border border-white/20">After</span>
                     </div>
-                    <div className="w-full h-full [&>div]:!absolute [&>div]:!inset-0 [&_img]:object-cover [&_img]:h-full [&_img]:w-full transition-all duration-500">
+                    <div className="w-full h-full [&_img]:object-cover [&_img]:h-full [&_img]:w-full transition-all duration-500">
                       {renderItem(item)}
                     </div>
                   </div>
@@ -163,6 +169,12 @@ export function ShowCaseSection({ heading, before_after, cta_text, cta_link, des
 
   return (
     <section className="py-6 max-w-5xl mx-auto px-6">
+      <style>{`
+        [data-testid="container"] {
+          width: 100% !important;
+          height: 100% !important;
+        }
+      `}</style>
       {heading && <h2 className="text-2xl md:text-3xl font-bold mb-8 text-primary dark:text-white">{heading}</h2>}
       {description && <p className="mb-6 text-lg text-slate-600 dark:text-slate-400">{description}</p>}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
