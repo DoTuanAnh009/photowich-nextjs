@@ -76,10 +76,10 @@ export function ShowCaseSection({ heading, before_after, cta_text, cta_link, des
 
           <div className="relative group/slider max-w-4xl mx-auto w-full">
             {/* Main Visual Container */}
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex items-center justify-center bg-slate-200">
-              {/* Navigation Buttons - Overlay */}
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 flex items-center justify-center bg-slate-200 h-[265px] md:h-[500px]">
+              {/* Navigation Buttons - Always Visible */}
               <button
-                className="absolute left-6 top-1/2 -translate-y-1/2 z-30 size-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 opacity-0 group-hover/slider:opacity-100 -translate-x-4 group-hover/slider:translate-x-0"
+                className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 z-30 size-10 md:size-12 rounded-full bg-navy-custom/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 shadow-xl"
                 onClick={() => setActive((active - 1 + before_after.length) % before_after.length)}
                 aria-label="Previous"
               >
@@ -96,50 +96,52 @@ export function ShowCaseSection({ heading, before_after, cta_text, cta_link, des
                     allowFullScreen
                   />
                 ) : (
-                  <>
+                  <div className="w-full h-full flex items-center justify-center py-2 px-2 relative">
                     <div className="absolute top-6 left-6 z-20 pointer-events-none">
                       <span className="bg-primary/90 backdrop-blur-sm text-white text-[10px] font-black px-3 py-1.5 rounded-full shadow-lg uppercase tracking-widest border border-white/20">Before</span>
                     </div>
                     <div className="absolute top-6 right-6 z-20 pointer-events-none">
                       <span className="bg-blue-600/90 backdrop-blur-sm text-white text-[10px] font-black px-3 py-1.5 rounded-full shadow-lg uppercase tracking-widest border border-white/20">After</span>
                     </div>
-                    {renderItem(item)}
-                  </>
+                    <div className="w-full h-full [&_img]:object-cover [&_img]:h-full [&_img]:w-full transition-all duration-500">
+                      {renderItem(item)}
+                    </div>
+                  </div>
                 )}
               </div>
 
               <button
-                className="absolute right-6 top-1/2 -translate-y-1/2 z-30 size-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 opacity-0 group-hover/slider:opacity-100 translate-x-4 group-hover/slider:translate-x-0"
+                className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 z-30 size-10 md:size-12 rounded-full bg-navy-custom/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 shadow-xl"
                 onClick={() => setActive((active + 1) % before_after.length)}
                 aria-label="Next"
               >
                 <span className="material-symbols-outlined text-2xl">chevron_right</span>
               </button>
-
-              {/* CTA Overlay - Bottom */}
-              {orderSlug && (
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 opacity-0 group-hover/slider:opacity-100 translate-y-4 group-hover/slider:translate-y-0 transition-all duration-500">
-                  <Link
-                    href={orderSlug}
-                    className="flex items-center gap-3 bg-orange-custom text-navy-custom font-black px-8 py-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 uppercase tracking-widest text-sm"
-                  >
-                    {orderText}
-                    <span className="material-symbols-outlined text-xl">arrow_forward</span>
-                  </Link>
-                </div>
-              )}
             </div>
 
-            {/* Pagination / Dots (Optional but nice) */}
+            {/* Pagination / Dots */}
             <div className="flex justify-center gap-2 mt-6">
               {before_after.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActive(idx)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${active === idx ? 'w-8 bg-primary' : 'w-2 bg-slate-300 dark:bg-slate-700'}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${active === idx ? 'w-8 bg-primary' : 'w-2 bg-slate-200 dark:bg-slate-700'}`}
                 />
               ))}
             </div>
+
+            {/* CTA Outside - Bottom of the block */}
+            {orderSlug && (
+              <div className="flex justify-center mt-8">
+                <Link
+                  href={orderSlug}
+                  className="flex items-center gap-3 bg-orange-custom text-navy-custom font-black px-10 py-4 rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 uppercase tracking-widest text-base border-2 border-orange-custom hover:bg-white hover:text-orange-custom"
+                >
+                  {orderText}
+                  <span className="material-symbols-outlined text-xl">shopping_cart</span>
+                </Link>
+              </div>
+            )}
           </div>
 
           {(item.caption || item.description) && (

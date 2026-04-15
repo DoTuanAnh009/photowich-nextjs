@@ -7,14 +7,14 @@
 
 'use client';
 
+import type { HeaderProps } from '@/types/header';
 import { useState } from 'react';
-import { Logo } from './Logo';
+import { CTAButton } from './CTAButton';
 import { DesktopNav } from './DesktopNav';
+import { Logo } from './Logo';
 import { MobileMenu } from './MobileMenu';
 import { MobileMenuButton } from './MobileMenuButton';
-import { CTAButton } from './CTAButton';
 import { buildNavItems } from './buildNavItems';
-import type { HeaderProps } from '@/types/header';
 
 export function Header({ services, blogCategories }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -23,7 +23,7 @@ export function Header({ services, blogCategories }: HeaderProps) {
   return (
     <>
       <header className="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
-        <div className="flex items-center p-4 justify-between max-w-7xl mx-auto">
+        <div className="flex items-center justify-between max-w-7xl mx-auto">
           <Logo />
           <DesktopNav navItems={navItems} />
           <div className="flex items-center gap-4">

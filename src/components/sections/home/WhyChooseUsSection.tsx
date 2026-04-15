@@ -1,24 +1,24 @@
 
+import type { WhyChooseUsSection as WhyChooseUsSectionType } from "@/types/home";
 import React from "react";
-import type { WhyChooseUsSection as WhyChooseUsSectionType, WhyChooseUsItem } from "@/types/home";
 
 // Icon mapping for icon_type (expand as needed)
 const ICONS: Record<string, React.ReactNode> = {
-        // Twilight Images icons
-        twilight: <span className="material-symbols-outlined text-4xl text-primary">nights_stay</span>, // Eye-Catching Twilight Images
-        details: <span className="material-symbols-outlined text-4xl text-primary">filter_hdr</span>, // Crystal Clear Details
-        color: <span className="material-symbols-outlined text-4xl text-primary">palette</span>, // True-to-Life Colors
-        no_glare: <span className="material-symbols-outlined text-4xl text-primary">light_mode</span>, // No Harsh Glare or Shadows
-      // Remove Unwanted Items icons
-      cleaner: <span className="material-symbols-outlined text-4xl text-primary">cleaning_services</span>, // Cleaner Look
-      spacious: <span className="material-symbols-outlined text-4xl text-primary">open_in_full</span>, // Bigger Space Vibes
-      highlight: <span className="material-symbols-outlined text-4xl text-primary">flare</span>, // Highlight Key Features
-      neutral: <span className="material-symbols-outlined text-4xl text-primary">person_off</span>, // Neutral Appeal
-      boost: <span className="material-symbols-outlined text-4xl text-primary">trending_up</span>, // Boosted Listing Appeal
-    warm_light: <span className="material-symbols-outlined text-4xl text-primary">wb_incandescent</span>, // Warm and Inviting Lighting
-    sunset: <span className="material-symbols-outlined text-4xl text-primary">wb_twilight</span>, // Beautiful Sunset Effects
-    depth: <span className="material-symbols-outlined text-4xl text-primary">blur_on</span>, // Dramatic Visual Depth
-    timeless: <span className="material-symbols-outlined text-4xl text-primary">auto_awesome</span>, // Timeless Appeal
+  // Twilight Images icons
+  twilight: <span className="material-symbols-outlined text-4xl text-primary">nights_stay</span>, // Eye-Catching Twilight Images
+  details: <span className="material-symbols-outlined text-4xl text-primary">filter_hdr</span>, // Crystal Clear Details
+  color: <span className="material-symbols-outlined text-4xl text-primary">palette</span>, // True-to-Life Colors
+  no_glare: <span className="material-symbols-outlined text-4xl text-primary">light_mode</span>, // No Harsh Glare or Shadows
+  // Remove Unwanted Items icons
+  cleaner: <span className="material-symbols-outlined text-4xl text-primary">cleaning_services</span>, // Cleaner Look
+  spacious: <span className="material-symbols-outlined text-4xl text-primary">open_in_full</span>, // Bigger Space Vibes
+  highlight: <span className="material-symbols-outlined text-4xl text-primary">flare</span>, // Highlight Key Features
+  neutral: <span className="material-symbols-outlined text-4xl text-primary">person_off</span>, // Neutral Appeal
+  boost: <span className="material-symbols-outlined text-4xl text-primary">trending_up</span>, // Boosted Listing Appeal
+  warm_light: <span className="material-symbols-outlined text-4xl text-primary">wb_incandescent</span>, // Warm and Inviting Lighting
+  sunset: <span className="material-symbols-outlined text-4xl text-primary">wb_twilight</span>, // Beautiful Sunset Effects
+  depth: <span className="material-symbols-outlined text-4xl text-primary">blur_on</span>, // Dramatic Visual Depth
+  timeless: <span className="material-symbols-outlined text-4xl text-primary">auto_awesome</span>, // Timeless Appeal
   fast: <span className="material-symbols-outlined text-4xl text-primary">bolt</span>,
   quality: <span className="material-symbols-outlined text-4xl text-primary">star_rate</span>,
   support: <span className="material-symbols-outlined text-4xl text-primary">support_agent</span>,
@@ -50,7 +50,7 @@ export function WhyChooseUsSection({ heading, items }: WhyChooseUsSectionType) {
           {items.map((item, idx) => (
             <div
               key={item.id}
-              className={`bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-4 flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-2 animate-fade-in animation-delay-${(idx+1)*100}`}
+              className={`bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-4 flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-2 animate-fade-in animation-delay-${(idx + 1) * 100}`}
               style={{ animationDelay: `${150 + idx * 100}ms` }}
             >
               {/* Icon on top */}

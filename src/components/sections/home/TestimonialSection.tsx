@@ -31,41 +31,52 @@ export function TestimonialSection({ heading, headingDescription, testimonials }
 
   // Calculate how many times we need to repeat the list to ensure infinite loop
   const minRequiredLength = visibleCount * 2 + blockCount;
-  const repeatTimes = blockCount > 0 ? Math.max(3, Math.ceil(minRequiredLength / blockCount)) : 0;
+  const repeatTimes = blockCount > 0 ? Math.max(10, Math.ceil((visibleCount * 2 + blockCount) / blockCount)) : 0;
   const extendedTestimonials = Array(repeatTimes).fill(baseTestimonials).flat();
 
-  const [activeIndex, setActiveIndex] = useState(blockCount);
+  // Start in the true middle of the large buffer
+  const [activeIndex, setActiveIndex] = useState(Math.floor(repeatTimes / 2) * blockCount);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   // Arrow navigation
   const goToPrev = () => {
-    if (!isTransitioning) return;
+    if (!isTransitioning || blockCount <= 1) return;
+    // Safety: don't allow moving too far into the first set
+    if (activeIndex <= blockCount) return;
     setActiveIndex((prev) => prev - 1);
   };
   const goToNext = () => {
-    if (!isTransitioning) return;
+    if (!isTransitioning || blockCount <= 1) return;
+    // Safety: don't allow moving too far into the last set
+    if (activeIndex >= (repeatTimes - 2) * blockCount) return;
     setActiveIndex((prev) => prev + 1);
   };
 
-  // Handle seamless loop (Silent Jump)
-  const handleTransitionEnd = () => {
-    // If we've moved into the third set, jump back to middle set
-    if (activeIndex >= blockCount * 2) {
-      setIsTransitioning(false);
-      setActiveIndex(activeIndex - blockCount);
-    }
-    // If we've moved into the first set, jump forward to middle set
-    else if (activeIndex < blockCount) {
-      setIsTransitioning(false);
-      setActiveIndex(activeIndex + blockCount);
-    }
-  };
+  // Re-enable transition after silent jump and handle silent jumps robustly
+  useEffect(() => {
+    const thresholdHigh = (repeatTimes - 3) * blockCount;
+    const thresholdLow = 2 * blockCount;
 
-  // Re-enable transition after silent jump
+    if (activeIndex >= thresholdHigh) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+        setActiveIndex(activeIndex - (Math.floor(repeatTimes / 2) - 2) * blockCount);
+      }, 700);
+      return () => clearTimeout(timer);
+    }
+    else if (activeIndex <= thresholdLow) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+        setActiveIndex(activeIndex + (Math.floor(repeatTimes / 2) - 2) * blockCount);
+      }, 700);
+      return () => clearTimeout(timer);
+    }
+  }, [activeIndex, blockCount, isTransitioning, repeatTimes]);
+
   useEffect(() => {
     if (!isTransitioning) {
       // Small delay to allow the "instant" jump to render without animation
-      const timeout = setTimeout(() => setIsTransitioning(true), 20);
+      const timeout = setTimeout(() => setIsTransitioning(true), 50);
       return () => clearTimeout(timeout);
     }
   }, [isTransitioning]);
@@ -115,7 +126,6 @@ export function TestimonialSection({ heading, headingDescription, testimonials }
           <div className="overflow-hidden w-full pb-12">
             <div
               className={`flex ${isTransitioning ? "transition-transform duration-700 ease-in-out" : ""}`}
-              onTransitionEnd={handleTransitionEnd}
               style={{
                 transform: `translateX(-${(activeIndex * 100) / extendedTestimonials.length}%)`,
                 width: `${(extendedTestimonials.length * 100) / visibleCount}%`
@@ -174,12 +184,12 @@ export function TestimonialSection({ heading, headingDescription, testimonials }
               <button
                 key={idx}
                 className={`transition-all duration-300 rounded-full h-2 ${(activeIndex % blockCount) === idx
-                    ? "bg-orange-custom w-8"
-                    : "bg-slate-300 dark:bg-slate-700 w-2 hover:bg-slate-400"
+                  ? "bg-orange-custom w-8"
+                  : "bg-slate-300 dark:bg-slate-700 w-2 hover:bg-slate-400"
                   }`}
                 onClick={() => {
                   if (!isTransitioning) return;
-                  setActiveIndex(blockCount + idx);
+                  setActiveIndex(Math.floor(repeatTimes / 2) * blockCount + idx);
                 }}
                 aria-label={`Go to slide ${idx + 1}`}
               />

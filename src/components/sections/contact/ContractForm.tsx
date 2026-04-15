@@ -1,6 +1,6 @@
 "use client";
-import { sendLeadToTelegram } from '@/lib/telegram';
 import { submitLead } from '@/lib/lead';
+import { sendLeadToTelegram } from '@/lib/telegram';
 import React from "react";
 
 export const ContractForm = () => {
@@ -89,16 +89,16 @@ export const ContractForm = () => {
         </div>
       )}
       <div className="bg-white dark:bg-slate-900 p-10 md:p-16 rounded-[2.5rem] shadow-2xl border border-slate-100 dark:border-slate-800 max-w-2xl w-full mx-auto">
-      <form className="flex flex-col gap-6" onSubmit={handleSubmit} noValidate>
-        {submitStatus === 'success' && (
-          <div className="text-green-600 font-bold text-center mb-2">Your request has been submitted successfully!</div>
-        )}
-        {submitStatus === 'error' && (
-          <div className="text-red-600 font-bold text-center mb-2">Failed to submit. Please try again.</div>
-        )}
-        <h2 className="text-2xl font-extrabold mb-4 text-[#0a2c56] tracking-wide uppercase text-center">HOW CAN WE HELP YOU?</h2>
-        <div className="flex flex-col gap-2">
-          <label className="text-lg font-bold text-[#0a2c56] mb-1">Name<span className="text-red-500">*</span></label>
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit} noValidate>
+          {submitStatus === 'success' && (
+            <div className="text-green-600 font-bold text-center mb-2">Your request has been submitted successfully!</div>
+          )}
+          {submitStatus === 'error' && (
+            <div className="text-red-600 font-bold text-center mb-2">Failed to submit. Please try again.</div>
+          )}
+          <h2 className="text-2xl font-extrabold mb-4 text-[#0a2c56] tracking-wide uppercase text-center">HOW CAN WE HELP YOU?</h2>
+          <div className="flex flex-col gap-2">
+            <label className="text-lg font-bold text-[#0a2c56] mb-1">Name<span className="text-red-500">*</span></label>
             <input name="name" value={form.name} onChange={handleChange} className={`w-full rounded-xl border ${errors.name ? 'border-red-500' : 'border-slate-300'} text-base p-3 shadow-md focus:ring-primary focus:border-primary`} placeholder="For example: John Wick" type="text" />
             {errors.name && <span className="text-red-500 text-xs mt-1">{errors.name}</span>}
           </div>
@@ -124,7 +124,7 @@ export const ContractForm = () => {
             </svg>
           </button>
         </form>
-        </div>
-      </>
-    );
+      </div>
+    </>
+  );
 }

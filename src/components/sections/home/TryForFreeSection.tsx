@@ -93,7 +93,7 @@ export function TryForFreeSection({ heading, bullets, services, description }: T
       service: form.service,
       message: form.message,
       shareLink: form.shareLink,
-      imageLinks: form.imageLinks.filter(l => l.trim() !== ""),
+      imageLinks: form.imageLinks.filter(l => l.trim() !== "").map(url => ({ url })),
       status_lead: 'new',
       source: 'website-page',
     };
@@ -242,10 +242,6 @@ export function TryForFreeSection({ heading, bullets, services, description }: T
                       <span className="material-symbols-outlined text-lg">add_circle</span>
                       ADD MORE LINK
                     </button>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <label className="text-sm font-black text-navy-custom dark:text-slate-300 uppercase tracking-wider">General Share Link (Optional)</label>
-                    <input name="shareLink" value={form.shareLink} onChange={handleChange} className="w-full rounded-xl border border-slate-200 dark:border-slate-700 dark:bg-slate-800 text-sm p-3.5 focus:ring-primary focus:border-primary" placeholder="Folder link: https://drive.google.com/..." type="url" />
                   </div>
                   <button className="w-full bg-orange-custom text-navy-custom font-black py-4 rounded-xl shadow-lg hover:shadow-orange-custom/20 transition-all hover:scale-[1.02] active:scale-95 mt-4 text-lg uppercase tracking-widest" type="submit">
                     SEND REQUEST NOW

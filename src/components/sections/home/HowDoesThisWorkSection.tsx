@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import type { ProcessStepsSection, ProcessStep } from "@/types/home";
+import { StrapiImage } from "@/components/ui/StrapiImage";
+import type { ProcessStepsSection } from "@/types/home";
+import { useState } from "react";
 // Icon mặc định cho từng bước (hardcoded)
 const DEFAULT_ICONS = [
-  <svg width="40" height="40" fill="none" viewBox="0 0 40 40" aria-label="Upload Files"><circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" /><path d="M20 26V14M20 14l-5 5M20 14l5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  <svg width="40" height="40" fill="none" viewBox="0 0 40 40" aria-label="Fotober Editing"><circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" /><path d="M20 12v16M12 20h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>,
-  <svg width="40" height="40" fill="none" viewBox="0 0 40 40" aria-label="Quality Control"><circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" /><path d="M14 20h12M20 14v12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>,
-  <svg width="40" height="40" fill="none" viewBox="0 0 40 40" aria-label="Get Them Delivered"><circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" /><path d="M14 26h12M14 14h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>,
+  <svg width="40" height="40" fill="none" viewBox="0 0 40 40" aria-label="Upload Files"><circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" /><path d="M20 26V14M20 14l-5 5M20 14l5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+  <svg width="40" height="40" fill="none" viewBox="0 0 40 40" aria-label="Fotober Editing"><circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" /><path d="M20 12v16M12 20h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>,
+  <svg width="40" height="40" fill="none" viewBox="0 0 40 40" aria-label="Quality Control"><circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" /><path d="M14 20h12M20 14v12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>,
+  <svg width="40" height="40" fill="none" viewBox="0 0 40 40" aria-label="Get Them Delivered"><circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" /><path d="M14 26h12M14 14h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>,
 ];
-import { StrapiImage } from "@/components/ui/StrapiImage";
 
 export function HowDoesThisWorkSection({ heading, steps }: ProcessStepsSection) {
   "use client";
@@ -24,7 +24,7 @@ export function HowDoesThisWorkSection({ heading, steps }: ProcessStepsSection) 
       )}
       <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0 max-w-5xl mx-auto relative">
         {/* Vạch kẻ ngang */}
-        <div className="absolute top-1/2 left-0 right-0 h-0.5 md:h-1 bg-white/40 z-0" style={{transform: 'translateY(-50%)'}} />
+        <div className="absolute top-1/2 left-0 right-0 h-0.5 md:h-1 bg-white/40 z-0" style={{ transform: 'translateY(-50%)' }} />
         {steps.map((step, idx) => (
           <div
             key={step.id}
@@ -37,7 +37,7 @@ export function HowDoesThisWorkSection({ heading, steps }: ProcessStepsSection) 
             {/* Vạch kẻ riêng cho step khi hover */}
             <div
               className={`absolute top-1/2 left-0 right-0 h-1 transition-all duration-300 ease-in-out ${hovered === idx ? 'bg-navy-custom' : 'bg-white/40'}`}
-              style={{transform: 'translateY(-50%)'}}
+              style={{ transform: 'translateY(-50%)' }}
             />
             {/* Icon step: nếu có icon từ API thì render, không thì dùng mặc định */}
             <div
@@ -56,7 +56,7 @@ export function HowDoesThisWorkSection({ heading, steps }: ProcessStepsSection) 
               )}
             </div>
             {/* Số thứ tự */}
-            <div className={`w-8 h-8 flex items-center justify-center rounded-full bg-navy-custom text-white font-bold text-lg absolute top-1/2 left-1/2 z-20 shadow transition-all duration-300 ease-in-out`} style={{transform: 'translate(-50%, -50%)'}}>
+            <div className={`w-8 h-8 flex items-center justify-center rounded-full bg-navy-custom text-white font-bold text-lg absolute top-1/2 left-1/2 z-20 shadow transition-all duration-300 ease-in-out`} style={{ transform: 'translate(-50%, -50%)' }}>
               {idx + 1}
             </div>
             {/* Tiêu đề và mô tả */}

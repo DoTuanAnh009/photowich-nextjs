@@ -61,11 +61,11 @@ export function ServiceListSection({ heading, services }: ServiceListSectionType
     }, []);
 
   // Filter services by active category
-const filteredServices = useMemo(() => (
-  activeCategory
-    ? services.filter(s => s.category?.title === activeCategory)
-    : services
-), [services, activeCategory]);
+  const filteredServices = useMemo(() => (
+    activeCategory
+      ? services.filter(s => s.category?.title === activeCategory)
+      : services
+  ), [services, activeCategory]);
 
   return (
     <section className="max-w-4xl w-full mx-auto py-8 px-2 md:px-4">
@@ -101,7 +101,7 @@ const filteredServices = useMemo(() => (
           return (
             <div
               key={service.id}
-              className={`group bg-white dark:bg-slate-900 rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-primary animate-fade-in animation-delay-${(idx+1)*100} p-4 w-full flex flex-col`}
+              className={`group bg-white dark:bg-slate-900 rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-primary animate-fade-in animation-delay-${(idx + 1) * 100} p-4 w-full flex flex-col`}
               style={{ animationDelay: `${150 + idx * 100}ms` }}
               tabIndex={0}
               aria-label={displayTitle}
@@ -116,18 +116,18 @@ const filteredServices = useMemo(() => (
                     <div className="absolute top-2 right-2 z-10">
                       <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded shadow">After</span>
                     </div>
-                                <ReactCompareImage
-                                  leftImage={getStrapiMediaUrl(service.background_image_before)}
-                                  rightImage={getStrapiMediaUrl(service.background_image_after)}
-                                  leftImageAlt={displayTitle + " - before"}
-                                  rightImageAlt={displayTitle + " - after"}
-                                  sliderLineColor="#ffffff"
-                                  sliderLineWidth={4}
-                                  handleSize={40}
-                                  vertical={false}
-                                  hover
-                                  skeleton={<div className="w-full h-full flex items-center justify-center bg-gray-200 animate-pulse" style={{minHeight: 180}}>Loading...</div>}
-                                />
+                    <ReactCompareImage
+                      leftImage={getStrapiMediaUrl(service.background_image_before)}
+                      rightImage={getStrapiMediaUrl(service.background_image_after)}
+                      leftImageAlt={displayTitle + " - before"}
+                      rightImageAlt={displayTitle + " - after"}
+                      sliderLineColor="#ffffff"
+                      sliderLineWidth={4}
+                      handleSize={40}
+                      vertical={false}
+                      hover
+                      skeleton={<div className="w-full h-full flex items-center justify-center bg-gray-200 animate-pulse" style={{ minHeight: 180 }}>Loading...</div>}
+                    />
                   </>
                 ) : (
                   <StrapiImage
@@ -138,7 +138,7 @@ const filteredServices = useMemo(() => (
                     priority={idx === 0}
                   />
                 )}
-            <div style={{ pointerEvents: 'none' }} className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />              </div>
+                <div style={{ pointerEvents: 'none' }} className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />              </div>
               <div className="p-6 flex flex-col gap-2 items-center flex-1 w-full">
                 <h3 className="text-lg md:text-xl font-bold text-navy-custom dark:text-white group-hover:text-primary transition-colors text-center">
                   {displayTitle}
@@ -155,7 +155,7 @@ const filteredServices = useMemo(() => (
                 >
                   View service
                 </a>
-                
+
               </div>
             </div>
           );

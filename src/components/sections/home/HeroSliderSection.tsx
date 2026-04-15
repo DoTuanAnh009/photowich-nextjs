@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
-import type { HeroSliderSection } from "@/types/home";
 import { StrapiImage } from "@/components/ui/StrapiImage";
+import type { HeroSliderSection } from "@/types/home";
+import React, { useEffect, useRef, useState } from "react";
 
 export function HeroSliderSection({ slides }: HeroSliderSection) {
   const [activeIndex, setActiveIndex] = useState(0);

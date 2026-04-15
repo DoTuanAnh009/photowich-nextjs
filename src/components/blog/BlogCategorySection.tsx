@@ -13,7 +13,7 @@ export function BlogCategorySection({ category, posts }: { category: BlogCategor
     return (
       <section className="max-w-7xl mx-auto px-4 md:px-8 py-12">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold text-primary">{category.title}</h2>
+          <h2 className="text-2xl font-bold text-navy-custom">{category.title}</h2>
           <Link href={`/blogs/${category.slug}`} className="text-primary font-bold text-sm hover:underline" aria-label={`Xem tất cả bài viết chuyên mục ${category.title}`}>See All</Link>
         </div>
         <p className="text-center text-gray-500">Chưa có bài viết</p>
@@ -24,7 +24,7 @@ export function BlogCategorySection({ category, posts }: { category: BlogCategor
   return (
     <section className="max-w-7xl mx-auto px-4 md:px-8 py-12">
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl font-bold text-primary">{category.title}</h2>
+        <h2 className="text-2xl font-bold text-navy-custom">{category.title}</h2>
         <Link href={`/blogs/${category.slug}`} className="text-primary font-bold text-sm hover:underline" aria-label={`Xem tất cả bài viết chuyên mục ${category.title}`}>See All</Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -46,7 +46,7 @@ export function BlogCategorySection({ category, posts }: { category: BlogCategor
                 {post.author?.name || DEFAULT_AUTHOR} • {formatDate(post.publishedAt)}
               </div>
               <Link href={`/blogs/${category.slug}/${post.slug}`} aria-label={`Xem chi tiết bài viết ${post.title}`} tabIndex={0}>
-                <h3 className="font-bold text-lg mb-4 leading-snug text-slate-800 dark:text-white hover:text-primary transition-colors">
+                <h3 className="font-bold text-lg mb-4 leading-snug text-navy-custom dark:text-white hover:text-primary transition-colors">
                   {post.title}
                 </h3>
               </Link>

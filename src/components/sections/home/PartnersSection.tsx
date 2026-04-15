@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
-import type { PartnersSection } from "@/types/home";
 import { StrapiImage } from "@/components/ui/StrapiImage";
+import type { PartnersSection } from "@/types/home";
+import { useEffect, useRef, useState } from "react";
 
 export function PartnersSection({ heading, partners }: PartnersSection) {
   const [activeIndex, setActiveIndex] = useState(0);

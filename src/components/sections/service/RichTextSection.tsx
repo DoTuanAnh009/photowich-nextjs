@@ -31,7 +31,7 @@ export function RichTextSection({ heading, content }: RichTextSectionType) {
   if (!heading && !content) return null;
   return (
     <section className="max-w-4xl mx-auto px-6 mt-6">
-      {heading && <h2 className="text-2xl text-center md:text-3xl font-bold text-primary dark:text-white mb-4">{heading}</h2>}
+      {heading && <h2 className="text-2xl text-center md:text-3xl font-bold text-navy-custom dark:text-white mb-4">{heading}</h2>}
       {content && (
         <div className="prose dark:prose-invert text-lg">
           {renderRichTextBlocks(content)}

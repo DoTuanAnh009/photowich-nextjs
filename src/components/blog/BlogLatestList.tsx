@@ -16,7 +16,7 @@ export function BlogLatestList({ posts }: BlogLatestListProps) {
   if (!posts || posts.length === 0) {
     return (
       <section className="max-w-4xl mx-auto py-12 text-center text-gray-500">
-        <h2 className="text-2xl font-bold text-primary mb-4">Latest Posts</h2>
+        <h2 className="text-2xl font-bold text-navy-custom mb-4">Latest Posts</h2>
         <p>Chưa có bài viết mới.</p>
       </section>
     );
@@ -29,7 +29,7 @@ export function BlogLatestList({ posts }: BlogLatestListProps) {
   return (
     <section className="max-w-7xl mx-auto px-4 md:px-8 py-12 space-y-16">
       <div className="flex items-center mb-8">
-        <h2 className="text-2xl font-bold text-primary">Latest Posts</h2>
+        <h2 className="text-2xl font-bold text-navy-custom">Latest Posts</h2>
       </div>
       {/* Featured post */}
       <div className="bg-white dark:bg-slate-800 rounded-lg overflow-hidden border border-slate-100 dark:border-slate-700 mb-8 flex flex-col md:flex-row gap-0 md:gap-8 group cursor-pointer hover:shadow-xl transition-shadow duration-300 animate-fadein" style={{ animationDelay: '80ms', animationFillMode: 'both' }}>
@@ -44,12 +44,12 @@ export function BlogLatestList({ posts }: BlogLatestListProps) {
         </div>
         <div className="p-8 md:w-2/5 flex flex-col justify-center">
           <div className="flex items-center gap-2 text-xs text-slate-400 mb-4">
-            <span className="font-bold text-primary">{featured.author?.name || DEFAULT_AUTHOR}</span>
+            <span className="font-bold text-navy-custom">{featured.author?.name || DEFAULT_AUTHOR}</span>
             <span>•</span>
             <span>{formatDate(featured.publishedAt)}</span>
           </div>
           <Link href={`/blogs/${featured.categorySlug}/${featured.slug}`} aria-label={`Xem chi tiết bài viết ${featured.title}`} tabIndex={0}>
-            <h3 className="text-3xl font-bold mb-4 leading-tight text-slate-800 dark:text-white group-hover:text-primary transition-colors">
+            <h3 className="text-3xl font-bold mb-4 leading-tight text-navy-custom dark:text-white group-hover:text-primary transition-colors">
               {featured.title}
             </h3>
           </Link>
@@ -81,7 +81,7 @@ export function BlogLatestList({ posts }: BlogLatestListProps) {
                 {post.author?.name || DEFAULT_AUTHOR} • {formatDate(post.publishedAt)}
               </div>
               <Link href={`/blogs/${post.categorySlug}/${post.slug}`} aria-label={`Xem chi tiết bài viết ${post.title}`} tabIndex={0}>
-                <h3 className="font-bold text-lg mb-4 leading-snug text-slate-800 dark:text-white hover:text-primary transition-colors">
+                <h3 className="font-bold text-lg mb-4 leading-snug text-navy-custom dark:text-white hover:text-primary transition-colors">
                   {post.title}
                 </h3>
               </Link>
