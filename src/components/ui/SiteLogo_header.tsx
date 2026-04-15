@@ -21,17 +21,20 @@ export function SiteLogoHeader({
   textColor = "currentColor",
   iconColor = "currentColor",
 }: SiteLogoProps) {
+  // Comfortable landscape aspect ratio: 110/200 = 0.55
+  const height = size * 0.55;
+
   return (
     <svg
       width={size}
-      height={size}
-      viewBox="0 0 100 135"
+      height={height}
+      viewBox="-50 20 200 110"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      {/* Graphical Icon Part - Scaled down for elegance */}
-      <g transform="translate(50, 70) scale(0.85) translate(-50, -70)">
+      {/* Graphical Icon Part - Scaled up for better prominence */}
+      <g transform="translate(50, 50) scale(0.85) translate(-50, -50)">
         {/* Semi-circle background (Sunrise shape) - Brand Orange */}
         {showBackground && (
           <path
@@ -55,7 +58,7 @@ export function SiteLogoHeader({
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        
+
         {/* Small recording dot */}
         <circle cx="75" cy="53" r="1.2" fill={iconColor} />
 
@@ -74,12 +77,12 @@ export function SiteLogoHeader({
           {/* Aperture segments */}
           <path d="M-9,0 L-4.5,-7.8 L4.5,-7.8 L-4.5,0 Z" fill={lensColor} />
           <path d="M-9,0 L-4.5,7.8 L-9,0 L-4.5,7.8 L4.5,7.8 L-4.5,0 Z" fill={lensColor} transform="rotate(180)" />
-          
+
           <path d="M-9,0 L-4.5,-7.8 L4.5,-7.8 L-4.5,0 Z" fill={lensColor} transform="rotate(60)" />
           <path d="M-9,0 L-4.5,-7.8 L4.5,-7.8 L-4.5,0 Z" fill={lensColor} transform="rotate(120)" />
           <path d="M-9,0 L-4.5,-7.8 L4.5,-7.8 L-4.5,0 Z" fill={lensColor} transform="rotate(240)" />
           <path d="M-9,0 L-4.5,-7.8 L4.5,-7.8 L-4.5,0 Z" fill={lensColor} transform="rotate(300)" />
-          
+
           {/* Center small hexagon gap */}
           <path
             d="M-2.6,-4.5 L2.6,-4.5 L5.2,0 L2.6,4.5 L-2.6,4.5 L-5.2,0 Z"
@@ -88,34 +91,34 @@ export function SiteLogoHeader({
         </g>
       </g>
 
-      {/* Brand Name - Bold Impact Style */}
+      {/* Brand Name - High Impact, Centered, No Clipping */}
       <text
         x="50"
-        y="95"
+        y="98"
         textAnchor="middle"
         fill={textColor}
         style={{
-          fontSize: '20px',
-          fontWeight: '1000',
-          fontFamily: '"Arial Black", Arial, sans-serif',
+          fontSize: '28px',
+          fontWeight: '500',
+          fontFamily: 'Arial, sans-serif',
           letterSpacing: '-0.02em',
           textTransform: 'uppercase'
         }}
       >
-        PHOTOWICH
+        PHOTOSWICH
       </text>
 
-      {/* Slogan */}
+      {/* Slogan - Clean Legibility (10px, Medium Weight) */}
       <text
         x="50"
-        y="108"
+        y="115"
         textAnchor="middle"
         fill={textColor}
         style={{
-          fontSize: '6px',
-          fontWeight: '900',
+          fontSize: '10px',
+          fontWeight: '500',
           fontFamily: 'Arial, sans-serif',
-          letterSpacing: '0.12em',
+          letterSpacing: '0.06em',
           textTransform: 'uppercase'
         }}
       >

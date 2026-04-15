@@ -9,7 +9,7 @@ export function FooterLogo() {
   return (
     <div className="flex flex-col gap-6 max-w-xs">
       <Link href="/" className="flex items-center">
-        <SiteLogoHeader size={80} textColor="white" iconColor="black" />
+        <SiteLogoHeader size={200} textColor="white" iconColor="white" />
       </Link>
       <p className="text-sm leading-relaxed text-slate-300">
         Leading specialist in Real Estate and eCommerce post-production with

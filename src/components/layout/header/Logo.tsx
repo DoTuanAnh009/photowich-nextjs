@@ -8,7 +8,7 @@ import Link from 'next/link';
 export function Logo() {
   return (
     <Link href="/" className="flex items-center">
-      <SiteLogoHeader size={80} className="drop-shadow-sm text-navy-custom" />
+      <SiteLogoHeader size={180} className="drop-shadow-sm text-navy-custom" />
     </Link>
   );
 }
