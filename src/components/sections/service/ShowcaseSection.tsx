@@ -30,7 +30,7 @@ export function ShowCaseSection({ heading, before_after, cta_text, cta_link, des
       const displayTitle = item.caption || item.description || 'Service';
       return (
         <div className={
-          `relative w-full  mx-auto rounded-xl overflow-hidden group cursor-pointer shadow-lg max-h-max` +
+          `relative w-full h-full mx-auto rounded-xl overflow-hidden group cursor-pointer shadow-lg [&>div]:!absolute [&>div]:!inset-0 [&_img]:object-cover [&_img]:h-full [&_img]:w-full` +
           (is_slide ? '' : ' ')
         }>
           <>
@@ -103,7 +103,7 @@ export function ShowCaseSection({ heading, before_after, cta_text, cta_link, des
                     <div className="absolute top-6 right-6 z-20 pointer-events-none">
                       <span className="bg-blue-600/90 backdrop-blur-sm text-white text-[10px] font-black px-3 py-1.5 rounded-full shadow-lg uppercase tracking-widest border border-white/20">After</span>
                     </div>
-                    <div className="w-full h-full [&_img]:object-cover [&_img]:h-full [&_img]:w-full transition-all duration-500">
+                    <div className="w-full h-full [&>div]:!absolute [&>div]:!inset-0 [&_img]:object-cover [&_img]:h-full [&_img]:w-full transition-all duration-500">
                       {renderItem(item)}
                     </div>
                   </div>

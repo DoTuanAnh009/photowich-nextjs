@@ -40,7 +40,7 @@ export function ExploreServicesSection({ heading, services }: ExploreServicesSec
                 <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded shadow">After</span>
               </div>
               {service.background_image_before && service.background_image_after ? (
-                <div className='relative w-full h-full mx-auto overflow-hidden group cursor-pointer [&_img]:object-cover [&_img]:h-full [&_img]:w-full transition-all duration-500'
+                <div className='relative w-full h-full mx-auto overflow-hidden group cursor-pointer [&>div]:!absolute [&>div]:!inset-0 [&_img]:object-cover [&_img]:h-full [&_img]:w-full transition-all duration-500'
                 >
                   <>
                     <ReactCompareImage
