@@ -138,7 +138,7 @@ export function ServiceListSection({ heading, services }: ServiceListSectionType
                     priority={idx === 0}
                   />
                 )}
-                <div style={{ pointerEvents: 'none' }} className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />              </div>
+              </div>
               <div className="p-6 flex flex-col gap-2 items-center flex-1 w-full">
                 <h3 className="text-lg md:text-xl font-bold text-navy-custom dark:text-white group-hover:text-primary transition-colors text-center">
                   {displayTitle}
