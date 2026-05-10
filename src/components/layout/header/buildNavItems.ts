@@ -18,17 +18,24 @@ export function buildNavItems(
   let serviceDetail = "";
   if (services) {
     serviceDetail = services[Object.keys(services)[0]]?.flatMap((arr) => arr).find((s) => s.slug === 'real-estate-photo-editing')?.slug ?? "";
-    Object.entries(services).forEach(([cat, arr]) => {
-      if (arr.length > 0) {
-        servicesDropdown.push({
+    const categoriesWithIndex = Object.entries(services)
+      .map(([cat, arr]) => {
+        const sortedArr = [...arr].sort((a, b) => (a.index || 0) - (b.index || 0));
+        return {
           title: cat.charAt(0).toUpperCase() + cat.slice(1),
-          items: arr.map((s) => ({
+          minIndex: sortedArr.length > 0 ? (sortedArr[0].index || 0) : 0,
+          items: sortedArr.map((s) => ({
             label: s.title,
             href: `/service/${s.slug}`,
             description: s.description,
           })),
-        });
-      }
+        };
+      })
+      .filter((cat) => cat.items.length > 0)
+      .sort((a, b) => a.minIndex - b.minIndex);
+
+    categoriesWithIndex.forEach(({ title, items }) => {
+      servicesDropdown.push({ title, items });
     });
   }
   // Fallback if no services from API

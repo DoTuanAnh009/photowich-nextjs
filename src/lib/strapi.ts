@@ -28,14 +28,14 @@ interface StrapiResponseWithMeta<T> extends StrapiResponse<T> {
  * Build URL with query parameters for Strapi API
  */
 function buildUrl(endpoint: string, query?: Record<string, string>): string {
-  const url = new URL(`/api${endpoint}`,  baseUrl);
-  
+  const url = new URL(`/api${endpoint}`, baseUrl);
+
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
       url.searchParams.append(key, value);
     });
   }
-  
+
   return url.toString();
 }
 
@@ -81,13 +81,13 @@ export function getStrapiMediaUrl(media?: { url?: string } | null): string {
   if (!media || !media.url) return "";
   // Nếu url đã có domain thì trả về luôn, nếu không thì nối với baseURL
   if (media.url.startsWith("http")) return media.url;
-  
-const isServer = typeof window === "undefined";
-const baseUrl =
-  typeof window === "undefined"
-    ? process.env.INTERNAL_API_URL
-    : process.env.NEXT_PUBLIC_API_URL;
-  const baseURL = baseUrl ??"";
+
+  const isServer = typeof window === "undefined";
+  const baseUrl =
+    typeof window === "undefined"
+      ? process.env.INTERNAL_API_URL
+      : process.env.NEXT_PUBLIC_API_URL;
+  const baseURL = baseUrl ?? "";
   return baseURL.replace(/\/$/, "") + media.url;
 }
 
@@ -118,6 +118,7 @@ export interface NavService {
   category?: ServiceCategory | null;
   description?: string;
   icon?: string;
+  index?: number;
 }
 
 /**
@@ -131,8 +132,8 @@ export async function getServicesForNav(): Promise<Record<string, NavService[]>>
       query: {
         'fields[0]': 'title',
         'fields[1]': 'slug',
+        'fields[2]': 'index',
         '[populate]': 'category',
-        'sort': 'title:asc',
       },
       tags: ['services', 'navigation'],
       revalidate: 300, // 5 minutes - nav doesn't change often

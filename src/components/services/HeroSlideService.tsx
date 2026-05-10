@@ -25,11 +25,43 @@ export function HeroSlideService(hero: BlogHero) {
     <section
       className="relative w-full h-[400px] md:h-[420px] lg:h-[480px] overflow-hidden"
     >
-      <StrapiImage
-        media={hero.featured_image}
-        alt={hero.title}
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        fill />
+      {hero.link_url ? (
+        hero.link_url.includes('youtube.com') || hero.link_url.includes('youtu.be') ? (
+          <iframe
+            src={(() => {
+              let url = hero.link_url || '';
+              if (url.includes('watch?v=')) {
+                url = url.replace('watch?v=', 'embed/');
+              } else if (url.includes('youtu.be/')) {
+                url = url.replace('youtu.be/', 'youtube.com/embed/');
+              }
+              const hasParams = url.includes('?');
+              const videoIdMatch = url.match(/embed\/([^?&]+)/);
+              const videoId = videoIdMatch ? videoIdMatch[1] : '';
+              return `${url}${hasParams ? '&' : '?'}autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}`;
+            })()}
+            title={hero.title}
+            className="absolute top-1/2 left-1/2 w-[100vw] h-[56.25vw] min-h-[400px] min-w-[712px] md:min-h-[420px] md:min-w-[747px] lg:min-h-[480px] lg:min-w-[854px] -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none object-cover"
+            allow="autoplay; encrypted-media"
+          />
+        ) : (
+          <video
+            src={hero.link_url}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          />
+        )
+      ) : (
+        <StrapiImage
+          media={hero.featured_image}
+          alt={hero.title}
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          fill 
+        />
+      )}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
         <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight flex flex-wrap justify-center gap-x-1 gap-y-2 select-none">
           {chars.map((char, i) => (

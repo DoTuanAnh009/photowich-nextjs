@@ -6,7 +6,6 @@ import { useState } from 'react';
 import ReactCompareImage from 'react-compare-image';
 
 export function ShowCaseSection({ heading, before_after, cta_text, cta_link, description, is_slide }: ShowcaseSectionType) {
-  const [showAll, setShowAll] = useState(false);
   if (!before_after || before_after.length === 0) return null;
 
   // Helper: render item
@@ -163,9 +162,7 @@ export function ShowCaseSection({ heading, before_after, cta_text, cta_link, des
   }
 
   // Grid UI
-  const maxItems = 6;
-  const gridItems = showAll ? before_after : before_after.slice(0, maxItems);
-  const hasMore = before_after.length > maxItems && !showAll;
+  const gridItems = before_after;
 
   return (
     <section className="py-6 max-w-5xl mx-auto px-6">
@@ -182,7 +179,7 @@ export function ShowCaseSection({ heading, before_after, cta_text, cta_link, des
           <div
             key={item.id}
             className={`space-y-4 transition-all duration-500 animate-showcase-item`}
-            style={showAll ? { animationDelay: `${idx * 60}ms` } : {}}
+            style={{ animationDelay: `${idx * 60}ms` }}
           >
             <p className="font-semibold text-black dark:text-slate-400">{item.caption || item.description}</p>
             <div className="relative w-full h-[265px] md:h-[265px] overflow-hidden flex items-center justify-center bg-slate-100 dark:bg-slate-700 rounded-xl">
@@ -209,16 +206,6 @@ export function ShowCaseSection({ heading, before_after, cta_text, cta_link, des
           100% { opacity: 1; transform: translateY(0); }
         }
       `}</style>
-      {hasMore && (
-        <div className="flex justify-center mt-8">
-          <button
-            className="bg-primary text-white px-8 py-3 rounded-full font-bold hover:opacity-90 transition-all uppercase tracking-wider text-sm"
-            onClick={() => setShowAll(true)}
-          >
-            Read More
-          </button>
-        </div>
-      )}
     </section>
   );
 }

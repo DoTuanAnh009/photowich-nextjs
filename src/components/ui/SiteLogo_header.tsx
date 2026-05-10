@@ -21,20 +21,20 @@ export function SiteLogoHeader({
   textColor = "currentColor",
   iconColor = "currentColor",
 }: SiteLogoProps) {
-  // Comfortable landscape aspect ratio: 110/200 = 0.55
-  const height = size * 0.55;
+  // Ultra-clear landscape aspect ratio for PHOTOSWITCH: 115/240 = 0.48
+  const height = size * 0.48;
 
   return (
     <svg
       width={size}
       height={height}
-      viewBox="-50 20 200 110"
+      viewBox="-70 15 240 115"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      {/* Graphical Icon Part - Scaled up for better prominence */}
-      <g transform="translate(50, 50) scale(0.85) translate(-50, -50)">
+      {/* Graphical Icon Part - Maximum focus and scale */}
+      <g transform="translate(50, 48) scale(0.95) translate(-50, -48)">
         {/* Semi-circle background (Sunrise shape) - Brand Orange */}
         {showBackground && (
           <path
@@ -91,34 +91,34 @@ export function SiteLogoHeader({
         </g>
       </g>
 
-      {/* Brand Name - High Impact, Centered, No Clipping */}
+      {/* Brand Name - High Impact, Clean Modern Weight */}
       <text
         x="50"
-        y="98"
+        y="100"
         textAnchor="middle"
         fill={textColor}
         style={{
-          fontSize: '28px',
+          fontSize: '32px',
           fontWeight: '500',
           fontFamily: 'Arial, sans-serif',
           letterSpacing: '-0.02em',
           textTransform: 'uppercase'
         }}
       >
-        PHOTOSWICH
+        PHOTOSWITCH
       </text>
 
-      {/* Slogan - Clean Legibility (10px, Medium Weight) */}
+      {/* Slogan - Maximum Legibility */}
       <text
         x="50"
-        y="115"
+        y="118"
         textAnchor="middle"
         fill={textColor}
         style={{
-          fontSize: '10px',
+          fontSize: '12px',
           fontWeight: '500',
           fontFamily: 'Arial, sans-serif',
-          letterSpacing: '0.06em',
+          letterSpacing: '0.04em',
           textTransform: 'uppercase'
         }}
       >

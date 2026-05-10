@@ -15,10 +15,10 @@ import type { MenuCategory } from '@/types/header';
 import Link from 'next/link';
 
 const iconMap: Record<string, React.ReactNode> = {
-    about: <span className="material-symbols-outlined mr-3">workspace_premium</span>,
-    'about us': <span className="material-symbols-outlined mr-3">workspace_premium</span>,
-    contact: <span className="material-symbols-outlined mr-3">support_agent</span>,
-    'contact us': <span className="material-symbols-outlined mr-3">support_agent</span>,
+  about: <span className="material-symbols-outlined mr-3">workspace_premium</span>,
+  'about us': <span className="material-symbols-outlined mr-3">workspace_premium</span>,
+  contact: <span className="material-symbols-outlined mr-3">support_agent</span>,
+  'contact us': <span className="material-symbols-outlined mr-3">support_agent</span>,
   // Blog categories
   photography: <PhotographyIcon className="w-7 h-7 mr-3 shrink-0" />,
   videography: <VideographyIcon className="w-7 h-7 mr-3 shrink-0" />,
@@ -55,16 +55,15 @@ export function DropdownMenu({ categories }: DropdownMenuProps) {
 
   return (
     <div
-      className={`absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ${
-        isWideDropdown ? 'w-150' : 'w-60'
-      }`}
+      className={`absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ${isWideDropdown ? 'w-150' : 'w-60'
+        }`}
     >
       <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
         <div className={`grid ${isWideDropdown ? 'grid-cols-2' : 'grid-cols-1'}`}>
           {categories.map((category) => (
             <div key={category.title} className="p-4">
               {isWideDropdown && (
-                <h4 className="text-xs font-black uppercase tracking-wider text-slate-400 mb-3 px-3">
+                <h4 className="border-l-3 border-navy-custom dark:border-white pl-2 text-base md:text-lg font-bold tracking-wide text-navy-custom dark:text-white mb-4 ml-3">
                   {category.title}
                 </h4>
               )}
@@ -77,7 +76,7 @@ export function DropdownMenu({ categories }: DropdownMenuProps) {
                     >
                       {/* Icon mapping by slug (label lowercased, slug, or custom field) */}
                       {iconMap[item.href.split('/').pop()?.toLowerCase() || ''] || defaultServiceIcon}
-                      <span className="block text-sm font-bold text-navy-custom dark:text-white">
+                      <span className="block text-sm text-navy-custom dark:text-white">
                         {item.label}
                       </span>
                       {/* {item.description && (

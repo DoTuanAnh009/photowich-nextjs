@@ -11,7 +11,7 @@ import type { FooterProps, FooterSection } from '@/types/footer';
  */
 export function buildFooterSections(services?: FooterProps['services']): FooterSection[] {
   // Flatten categorized services into a single list
-  const allServices: { label: string; href: string }[] = [];
+  let allServices: { label: string; href: string; index: number }[] = [];
   
   if (services) {
     Object.values(services).forEach(categoryServices => {
@@ -19,9 +19,11 @@ export function buildFooterSections(services?: FooterProps['services']): FooterS
         allServices.push({
           label: s.title,
           href: `/service/${s.slug}`,
+          index: s.index || 0,
         });
       });
     });
+    allServices.sort((a, b) => a.index - b.index);
   }
 
   // Take a maximum of 4 services

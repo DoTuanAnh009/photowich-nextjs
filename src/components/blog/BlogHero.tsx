@@ -1,4 +1,3 @@
-import { StrapiImage } from '@/components/ui/StrapiImage';
 import type { BlogCategory, BlogHero } from '@/types/blog';
 
 interface BlogHeroProps {
@@ -13,17 +12,44 @@ export function BlogHero({ hero, categories = [], activeSlug = 'all' }: BlogHero
   const isServer = typeof window === "undefined";
 
   const descDelay = chars.length * 40 + 200;
-
+  console.log('BlogHero Rendered with title:', hero.link_url);
   return (
     <section
       className="relative flex flex-col items-center justify-center text-center px-6 h-[400px] md:h-[420px] lg:h-[480px] w-full overflow-hidden"
     >
-      <StrapiImage
-        media={hero.featured_image}
-        alt={hero.title}
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        fill />
-      
+      {hero.link_url ? (
+        hero.link_url.includes('youtube.com') || hero.link_url.includes('youtu.be') ? (
+          <iframe
+            src={(() => {
+              let url = hero.link_url || '';
+              if (url.includes('watch?v=')) {
+                url = url.replace('watch?v=', 'embed/');
+              } else if (url.includes('youtu.be/')) {
+                url = url.replace('youtu.be/', 'youtube.com/embed/');
+              }
+              const hasParams = url.includes('?');
+              const videoIdMatch = url.match(/embed\/([^?&]+)/);
+              const videoId = videoIdMatch ? videoIdMatch[1] : '';
+              return `${url}${hasParams ? '&' : '?'}autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}`;
+            })()}
+            title={hero.title}
+            className="absolute top-1/2 left-1/2 w-[100vw] h-[56.25vw] min-h-[400px] min-w-[712px] md:min-h-[420px] md:min-w-[747px] lg:min-h-[480px] lg:min-w-[854px] -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none object-cover"
+            allow="autoplay; encrypted-media"
+          />
+        ) : (
+          <video
+            src={hero.link_url}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          />
+        )
+      ) : (
+        <></>
+      )}
+
       {/* Dark overlay for better text readability */}
       <div className="absolute inset-0 bg-black/40 z-0" />
 
@@ -47,7 +73,7 @@ export function BlogHero({ hero, categories = [], activeSlug = 'all' }: BlogHero
 
         {/* Category buttons - Only show on main blog page (when no activeSlug is provided) */}
         {!activeSlug || activeSlug === 'all' ? (
-          <div 
+          <div
             className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 opacity-0 animate-fadein-desc"
             style={{ animationDelay: `${descDelay - 100}ms` }}
           >
