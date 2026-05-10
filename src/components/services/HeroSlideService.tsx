@@ -29,16 +29,27 @@ export function HeroSlideService(hero: BlogHero) {
         hero.link_url.includes('youtube.com') || hero.link_url.includes('youtu.be') ? (
           <iframe
             src={(() => {
-              let url = hero.link_url || '';
-              if (url.includes('watch?v=')) {
-                url = url.replace('watch?v=', 'embed/');
-              } else if (url.includes('youtu.be/')) {
-                url = url.replace('youtu.be/', 'youtube.com/embed/');
-              }
-              const hasParams = url.includes('?');
-              const videoIdMatch = url.match(/embed\/([^?&]+)/);
-              const videoId = videoIdMatch ? videoIdMatch[1] : '';
-              return `${url}${hasParams ? '&' : '?'}autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}`;
+              let urlToParse = hero.link_url || '';
+              if (!urlToParse.startsWith('http')) urlToParse = 'https://' + urlToParse;
+              try {
+                const urlObj = new URL(urlToParse);
+                let videoId = '';
+                if (urlObj.hostname.includes('youtube.com')) {
+                  if (urlObj.pathname.includes('/embed/')) {
+                    videoId = urlObj.pathname.split('/embed/')[1];
+                  } else {
+                    videoId = urlObj.searchParams.get('v') || '';
+                    urlObj.searchParams.delete('v');
+                  }
+                } else if (urlObj.hostname.includes('youtu.be')) {
+                  videoId = urlObj.pathname.slice(1);
+                }
+                if (videoId) {
+                  const extra = urlObj.search.replace('?', '&');
+                  return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&rel=0${extra}`;
+                }
+              } catch (e) { }
+              return hero.link_url || '';
             })()}
             title={hero.title}
             className="absolute top-1/2 left-1/2 w-[100vw] h-[56.25vw] min-h-[400px] min-w-[712px] md:min-h-[420px] md:min-w-[747px] lg:min-h-[480px] lg:min-w-[854px] -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none object-cover"
@@ -59,7 +70,7 @@ export function HeroSlideService(hero: BlogHero) {
           media={hero.featured_image}
           alt={hero.title}
           className="absolute inset-0 w-full h-full object-cover z-0"
-          fill 
+          fill
         />
       )}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
